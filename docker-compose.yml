@@ -1,0 +1,12 @@
+# VERSAO DO DOCKER-COMPOSE
+version: '3'
+
+services:
+  linktree-api:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=linktree-api
+      - POSTGRESQL_PASSWORD=linktree
+      - POSTGRESQL_DATABASE=linktree
