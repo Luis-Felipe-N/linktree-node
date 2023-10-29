@@ -1,7 +1,7 @@
-import { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
-import { makeRegisterUseCase } from "../../../use-case/factories/make-register-use-case";
-import { UserAlreadyExistsError } from "../../../use-case/errors/user-already-exists-error";
+import { FastifyReply, FastifyRequest } from 'fastify'
+import { z } from 'zod'
+import { makeRegisterUseCase } from '../../../use-cases/factories/make-register-use-case'
+import { UserAlreadyExistsError } from '../../../use-cases/errors/user-already-exists-error'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
