@@ -72,6 +72,7 @@ describe('Authenticate UseCase', () => {
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)
   })
+
   it('should not be to able to authenticate with invalid password', async () => {
     await usersRepository.create({
       username: 'testedasilva',

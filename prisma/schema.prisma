@@ -13,8 +13,8 @@ datasource db {
 model User {
   id            String   @id @default(uuid())
   username      String   @unique
-  email         String?  @unique
-  password_hash String?
+  email         String   @unique
+  password_hash String
   created_at    DateTime @default(now())
 
   links Link[]
@@ -27,10 +27,38 @@ model Theme {
   created_at DateTime @default(now())
   active     Boolean  @default(true)
 
-  background String
-  button     String
+  background   Background @relation(fields: [backgroundId], references: [id])
+  button       Button     @relation(fields: [buttonId], references: [id])
+  backgroundId String
+  buttonId     String
 
   @@map("themes")
+}
+
+model Background {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+  active     Boolean  @default(true)
+  color      String
+  image      String?
+  poster     String?
+  style      String
+  Theme      Theme[]
+
+  @@map("backgrounds")
+}
+
+model Button {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+  active     Boolean  @default(true)
+
+  color      String
+  style      String
+  text_color String
+  Theme      Theme[]
+
+  @@map("buttons")
 }
 
 model Link {

@@ -6,6 +6,8 @@ import {
 import { randomUUID } from 'crypto'
 
 export class InMemoryUsersRepository implements UsersRepository {
+  public items: User[] = []
+
   async findByEmailOrUsername({
     email,
     username,
@@ -21,8 +23,6 @@ export class InMemoryUsersRepository implements UsersRepository {
     return userMemory
   }
 
-  public items: User[] = []
-
   async findById(id: string) {
     const userMemory = this.items.find((user) => id === user.id)
 
@@ -37,8 +37,8 @@ export class InMemoryUsersRepository implements UsersRepository {
     const user = {
       id: randomUUID(),
       username: data.username,
-      email: data.email || null,
-      password_hash: data.password_hash || null,
+      email: data.email,
+      password_hash: data.password_hash,
       created_at: new Date(),
     }
     this.items.push(user)

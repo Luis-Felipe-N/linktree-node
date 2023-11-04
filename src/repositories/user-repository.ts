@@ -11,4 +11,5 @@ export interface UsersRepository {
     email,
     username,
   }: FindByEmailOrUsernameParams): Promise<User | null>
+  findById(userId: string): Promise<User | null>
 }
