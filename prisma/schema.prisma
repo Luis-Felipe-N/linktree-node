@@ -18,6 +18,7 @@ model User {
   created_at    DateTime @default(now())
 
   links Link[]
+  Theme Theme[]
 
   @@map("users")
 }
@@ -26,11 +27,15 @@ model Theme {
   id         String   @id @default(uuid())
   created_at DateTime @default(now())
   active     Boolean  @default(true)
+  title      String
 
-  background   Background @relation(fields: [backgroundId], references: [id])
-  button       Button     @relation(fields: [buttonId], references: [id])
-  backgroundId String
-  buttonId     String
+  created_by User        @relation(fields: [user_id], references: [id])
+  background Background? @relation(fields: [background_id], references: [id])
+  button     Button?     @relation(fields: [button_id], references: [id])
+
+  background_id String?
+  button_id     String?
+  user_id       String
 
   @@map("themes")
 }

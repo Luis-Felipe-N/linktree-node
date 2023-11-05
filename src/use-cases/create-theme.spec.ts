@@ -1,0 +1,25 @@
+import { beforeEach, describe, expect, it } from 'vitest'
+
+import { CreateThemeUseCase } from './create-theme.usecase'
+import { InMemoryThemesRepository } from '@/repositories/in-memory/in-memory-themes-repository'
+
+let themeRepository: InMemoryThemesRepository
+let sut: CreateThemeUseCase
+
+describe('Create Gym Use Case', () => {
+  beforeEach(() => {
+    themeRepository = new InMemoryThemesRepository()
+    sut = new CreateThemeUseCase(themeRepository)
+  })
+
+  it('should be able to create gym', async () => {
+    const { theme } = await sut.execute({
+      title: 'Tema do Shrek',
+      userId: 'user-01',
+      backgroundId: null,
+      buttonId: null,
+    })
+
+    expect(theme.id).toEqual(expect.any(String))
+  })
+})

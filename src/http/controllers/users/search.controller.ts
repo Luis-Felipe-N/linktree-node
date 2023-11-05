@@ -1,0 +1,25 @@
+import { FastifyRequest, FastifyReply } from 'fastify'
+
+import { z } from 'zod'
+
+import { makeSearchUserUseCase } from '@/use-cases/factories/make-search-user-use-case'
+
+export async function search(request: FastifyRequest, reply: FastifyReply) {
+  const searchQuerySchema = z.object({
+    email: z.string().email().optional(),
+    username: z.string().optional(),
+  })
+
+  const { email, username } = searchQuerySchema.parse(request.query)
+
+  const searchUserUseCase = makeSearchUserUseCase()
+
+  const { user } = await searchUserUseCase.execute({ email, username })
+
+  return reply.status(200).send({
+    user: {
+      ...user,
+      password_hash: undefined,
+    },
+  })
+}

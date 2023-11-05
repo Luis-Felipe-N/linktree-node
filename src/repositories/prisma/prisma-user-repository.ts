@@ -20,23 +20,29 @@ export class PrismaUsersRepository implements UsersRepository {
     email,
     username,
   }: FindByEmailOrUsernameParams) {
-    const userWithEmail = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    })
+    if (email) {
+      const userWithEmail = await prisma.user.findUnique({
+        where: {
+          email,
+        },
+      })
 
-    if (userWithEmail) {
-      return userWithEmail
+      if (userWithEmail) {
+        return userWithEmail
+      }
     }
 
-    const userWithUsername = await prisma.user.findUnique({
-      where: {
-        username,
-      },
-    })
+    if (username) {
+      const userWithUsername = await prisma.user.findUnique({
+        where: {
+          username,
+        },
+      })
 
-    return userWithUsername
+      return userWithUsername
+    }
+
+    return null
   }
 
   async create(data: Prisma.UserUncheckedCreateInput) {
