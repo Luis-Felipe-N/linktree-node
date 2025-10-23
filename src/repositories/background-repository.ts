@@ -1,5 +1,6 @@
-import { Prisma, Background } from '@prisma/client'
+import type { Background } from "@/domain/enterprise/entities/background.entity";
+
 
 export interface BackgroundRepository {
-  create(data: Prisma.BackgroundCreateInput): Promise<Background>
+  create(data: Background): Promise<Background>
 }

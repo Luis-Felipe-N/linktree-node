@@ -1,4 +1,5 @@
-import { Prisma, User } from '@prisma/client'
+import type { User } from "@/domain/enterprise/entities/user.entity"
+
 
 export interface FindByEmailOrUsernameParams {
   email?: string
@@ -6,7 +7,7 @@ export interface FindByEmailOrUsernameParams {
 }
 
 export interface UsersRepository {
-  create(data: Prisma.UserCreateInput): Promise<User>
+  create(data: User): Promise<User>
   findByEmailOrUsername({
     email,
     username,

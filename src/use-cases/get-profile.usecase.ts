@@ -1,5 +1,5 @@
+import type { User } from '@/domain/enterprise/entities/user.entity'
 import { UsersRepository } from '../repositories/user-repository'
-import { User } from '@prisma/client'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface ProfileRequest {

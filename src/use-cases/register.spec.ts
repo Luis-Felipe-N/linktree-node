@@ -21,7 +21,7 @@ describe('Register UseCase', () => {
       password: '123456',
     })
 
-    expect(user.id).toEqual(expect.any(String))
+    expect(user.username).toEqual(expect.any(String))
   })
 
   it('should be to able to register with encrypted password', async () => {

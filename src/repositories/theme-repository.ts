@@ -1,6 +1,7 @@
-import { Prisma, Theme } from '@prisma/client'
+import type { Theme } from "@/domain/enterprise/entities/theme.entity"
+
 
 export interface ThemeRepository {
-  create(data: Prisma.ThemeUncheckedCreateInput): Promise<Theme>
+  create(data: Theme): Promise<Theme>
   save(theme: Theme): Promise<Theme>
 }

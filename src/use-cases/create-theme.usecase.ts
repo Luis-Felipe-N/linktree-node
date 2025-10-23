@@ -1,12 +1,14 @@
 import { hash } from 'bcrypt'
 import { UsersRepository } from '../repositories/user-repository'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
-import { Theme, User } from '@prisma/client'
+
 import { ThemeRepository } from '@/repositories/theme-repository'
+import { Theme } from '@/domain/enterprise/entities/theme.entity'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 interface CreateThemeUserRequest {
   title: string
-  userId: string
+  pageId: string
   buttonId: string | null
   backgroundId: string | null
 }
@@ -20,17 +22,18 @@ export class CreateThemeUseCase {
 
   async execute({
     title,
-    userId,
+    pageId,
     backgroundId,
     buttonId,
   }: CreateThemeUserRequest): Promise<CreateThemeUserResponse> {
-    // Request datas in usecase and make the logic to CreateTheme user
-    const theme = await this.themeRepository.create({
+    const theme = Theme.create({
       title,
-      user_id: userId,
-      background_id: backgroundId,
-      button_id: buttonId,
+      backgroundId: backgroundId ? new UniqueEntityID(backgroundId) : null,
+      buttonId: buttonId ? new UniqueEntityID(buttonId) : null,
+      pageId: new UniqueEntityID(pageId),
     })
+
+    await this.themeRepository.create(theme)
 
     return {
       theme,

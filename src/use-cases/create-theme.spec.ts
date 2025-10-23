@@ -15,11 +15,11 @@ describe('Create Gym Use Case', () => {
   it('should be able to create gym', async () => {
     const { theme } = await sut.execute({
       title: 'Tema do Shrek',
-      userId: 'user-01',
+      pageId: 'adryeli',
       backgroundId: null,
       buttonId: null,
     })
 
-    expect(theme.id).toEqual(expect.any(String))
+    expect(theme.id.toString()).toEqual(expect.any(String))
   })
 })

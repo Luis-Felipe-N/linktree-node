@@ -1,11 +1,11 @@
-import { Prisma } from '@prisma/client'
+import type { Background } from '@/domain/enterprise/entities/background.entity'
 import { prisma } from '../../lib/prisma'
 import { BackgroundRepository } from '../background-repository'
 
-export class PrismaBackgroundRepository implements BackgroundRepository {
-  async create(data: Prisma.BackgroundCreateInput) {
-    const background = await prisma.background.create({ data })
-
-    return background
+export class InMemoryBackgroundRepository implements BackgroundRepository {
+  public items: Background[] = []
+  async create(data: Background) {
+    this.items.push(data)
+    return data
   }
 }

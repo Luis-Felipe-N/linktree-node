@@ -1,4 +1,5 @@
-import { Prisma, User } from '@prisma/client'
+
+import type { User } from '@/domain/enterprise/entities/user.entity'
 import {
   FindByEmailOrUsernameParams,
   UsersRepository,
@@ -24,7 +25,7 @@ export class InMemoryUsersRepository implements UsersRepository {
   }
 
   async findById(id: string) {
-    const userMemory = this.items.find((user) => id === user.id)
+    const userMemory = this.items.find((user) => id === user.id.toString())
 
     if (!userMemory) {
       return null
@@ -33,16 +34,9 @@ export class InMemoryUsersRepository implements UsersRepository {
     return userMemory
   }
 
-  async create(data: Prisma.UserCreateInput) {
-    const user = {
-      id: randomUUID(),
-      username: data.username,
-      email: data.email,
-      password_hash: data.password_hash,
-      created_at: new Date(),
-    }
-    this.items.push(user)
+  async create(data: User) {
+    this.items.push(data)
 
-    return user
+    return data
   }
 }

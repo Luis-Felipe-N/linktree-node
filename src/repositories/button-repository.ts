@@ -1,5 +1,6 @@
-import { Button, Prisma } from '@prisma/client'
+import type { Button } from "@/domain/enterprise/entities/button.entity";
+
 
 export interface ButtonRepository {
-  create(data: Prisma.ButtonCreateInput): Promise<Button>
+  create(data: Button): Promise<Button>
 }
