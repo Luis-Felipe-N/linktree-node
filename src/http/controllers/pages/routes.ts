@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
 import { createPage } from './create-page.controller'
 import { getPageDetails } from './get-page-details.controller'
+import { getPageBySlug } from './get-page-by-id.controller'
 import { getUserPages } from './get-user-pages.controller'
 // Importar outros controllers que você criar (updatePage, deletePage, listUserPages, etc.)
 
@@ -9,8 +10,11 @@ export async function pagesRoutes(app: FastifyInstance) {
   /**
    * Públicas
    */
-  // GET /p/{slug} - Busca detalhes públicos da página
-  app.get('/p/:slug', getPageDetails)
+  // GET /p/{slug} - Busca detalhes públicos da página pelo slug
+  app.get('/pages/:slug', getPageDetails)
+
+  // GET /pages/{id} - Busca detalhes de uma página pelo ID
+  app.get('/pages/:id', getPageBySlug)
 
   /**
    * Autenticadas (requer JWT)
