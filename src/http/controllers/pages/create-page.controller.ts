@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { makeCreatePageUseCase } from '@/use-cases/factories/make-create-page-use-case'
 import { PageSlugAlreadyExistsError } from '@/use-cases/errors/page-slug-already-exists-error'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
+import { PagePresenter } from '@/http/presenters/page-presenter'
 
 export async function createPage(request: FastifyRequest, reply: FastifyReply) {
   // Assumindo que verifyJWT adiciona 'sub' ao objeto 'user' da requisição
@@ -42,10 +43,8 @@ export async function createPage(request: FastifyRequest, reply: FastifyReply) {
       description,
       imageUrl,
     })
-    // Omitir ownerId da resposta
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { ownerId, ...pageResponse } = page;
-    return reply.status(201).send({ page: pageResponse })
+    
+    return reply.status(201).send({ page: PagePresenter.toHTTP(page) })
   } catch (error) {
     if (error instanceof PageSlugAlreadyExistsError) {
       return reply.status(409).send({ message: error.message })

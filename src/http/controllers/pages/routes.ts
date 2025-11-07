@@ -10,7 +10,7 @@ export async function pagesRoutes(app: FastifyInstance) {
   /**
    * Públicas
    */
-  // GET /p/{slug} - Busca detalhes públicos da página pelo slug
+  // GET /pages/{slug} - Busca detalhes públicos da página pelo slug
   app.get('/pages/:slug', getPageDetails)
 
   /**

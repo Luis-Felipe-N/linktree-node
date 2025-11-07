@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { Page } from '@/domain/enterprise/entities/page.entity'
 import type { PagesRepository } from '../page-repository'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { PrismaPageMapper } from './mappers/prisma-page-mapper'
 
 export class PrismaPagesRepository implements PagesRepository {
   /**
@@ -11,29 +11,13 @@ export class PrismaPagesRepository implements PagesRepository {
    * @returns A página criada como entidade.
    */
   async create(data: Page): Promise<Page> {
+    const prismaData = PrismaPageMapper.toPrisma(data)
+    
     const page = await prisma.page.create({
-      data: {
-        id: data.id.toString(),
-        slug: data.slug,
-        title: data.title,
-        description: data.description,
-        imageUrl: data.imageUrl,
-        ownerId: data.ownerId.toString(),
-        createdAt: data.createdAt,
-        updatedAt: data.updatedAt || new Date(),
-      },
+      data: prismaData,
     })
 
-    return Page.create(
-      {
-        ownerId: new UniqueEntityID(page.ownerId),
-        slug: page.slug,
-        title: page.title,
-        description: page.description,
-        imageUrl: page.imageUrl,
-      },
-      new UniqueEntityID(page.id),
-    )
+    return PrismaPageMapper.toDomain(page)
   }
 
   /**
@@ -56,18 +40,7 @@ export class PrismaPagesRepository implements PagesRepository {
 
     if (!page) return null
 
-    // Por enquanto, retornar apenas os dados básicos como entidade
-    // TODO: incluir relações (links, theme) na entidade se necessário
-    return Page.create(
-      {
-        ownerId: new UniqueEntityID(page.ownerId),
-        slug: page.slug,
-        title: page.title,
-        description: page.description,
-        imageUrl: page.imageUrl,
-      },
-      new UniqueEntityID(page.id),
-    )
+    return PrismaPageMapper.toDomain(page)
   }
 
   /**
@@ -82,16 +55,7 @@ export class PrismaPagesRepository implements PagesRepository {
 
     if (!page) return null
 
-    return Page.create(
-      {
-        ownerId: new UniqueEntityID(page.ownerId),
-        slug: page.slug,
-        title: page.title,
-        description: page.description,
-        imageUrl: page.imageUrl,
-      },
-      new UniqueEntityID(page.id),
-    )
+    return PrismaPageMapper.toDomain(page)
   }
 
   /**
@@ -105,18 +69,7 @@ export class PrismaPagesRepository implements PagesRepository {
       orderBy: { createdAt: 'asc' }, // Ordena as páginas do usuário
     })
 
-    return pages.map((page) =>
-      Page.create(
-        {
-          ownerId: new UniqueEntityID(page.ownerId),
-          slug: page.slug,
-          title: page.title,
-          description: page.description,
-          imageUrl: page.imageUrl,
-        },
-        new UniqueEntityID(page.id),
-      ),
-    )
+    return PrismaPageMapper.toDomainList(pages)
   }
 
   /**

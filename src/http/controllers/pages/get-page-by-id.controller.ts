@@ -2,6 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeGetPageDetailsUseCase } from '@/use-cases/factories/make-get-page-details-use-case'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
+import { PagePresenter } from '@/http/presenters/page-presenter'
 
 export async function getPageBySlug(request: FastifyRequest, reply: FastifyReply) {
   const getPageBySlugParamsSchema = z.object({
@@ -22,7 +23,7 @@ export async function getPageBySlug(request: FastifyRequest, reply: FastifyReply
     const getPageDetailsUseCase = makeGetPageDetailsUseCase()
     const { page } = await getPageDetailsUseCase.execute({ slug })
 
-    return reply.status(200).send({ page })
+    return reply.status(200).send({ page: PagePresenter.toHTTPWithOwner(page) })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return reply.status(404).send({ message: 'Page not found.' })
