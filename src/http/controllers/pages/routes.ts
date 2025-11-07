@@ -13,9 +13,6 @@ export async function pagesRoutes(app: FastifyInstance) {
   // GET /p/{slug} - Busca detalhes públicos da página pelo slug
   app.get('/pages/:slug', getPageDetails)
 
-  // GET /pages/{id} - Busca detalhes de uma página pelo ID
-  app.get('/pages/:id', getPageBySlug)
-
   /**
    * Autenticadas (requer JWT)
    */
