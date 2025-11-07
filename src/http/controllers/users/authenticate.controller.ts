@@ -20,14 +20,8 @@ export async function authenticate(
 
     const { user } = await authenticateUseCase.execute({ username, password })
 
-    const token = await reply.jwtSign(
-      {},
-      {
-        sign: {
-          sub: user.id,
-        },
-      },
-    )
+    // Sign token with payload containing `sub` as string
+    const token = await reply.jwtSign({ sub: user.id.toString() })
     return reply.status(200).send({
       token,
     })
