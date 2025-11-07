@@ -6,7 +6,6 @@ import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-err
 import { PagePresenter } from '@/http/presenters/page-presenter'
 
 export async function createPage(request: FastifyRequest, reply: FastifyReply) {
-  // Assumindo que verifyJWT adiciona 'sub' ao objeto 'user' da requisição
   if (!request.user || !request.user.sub) {
     return reply.status(401).send({ message: 'Unauthorized.' })
   }
@@ -43,14 +42,13 @@ export async function createPage(request: FastifyRequest, reply: FastifyReply) {
       description,
       imageUrl,
     })
-    
+
     return reply.status(201).send({ page: PagePresenter.toHTTP(page) })
   } catch (error) {
     if (error instanceof PageSlugAlreadyExistsError) {
       return reply.status(409).send({ message: error.message })
     }
     if (error instanceof ResourceNotFoundError) {
-      // O User deveria existir se passou pelo JWT, então isso seria inesperado
       console.error('Owner user not found during page creation:', request.user.sub);
       return reply.status(404).send({ message: 'Owner user not found.' })
     }

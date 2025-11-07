@@ -5,14 +5,9 @@ import type { PagesRepository } from '../page-repository'
 import { PrismaPageMapper } from './mappers/prisma-page-mapper'
 
 export class PrismaPagesRepository implements PagesRepository {
-  /**
-   * Cria uma nova página no banco de dados.
-   * @param data - Dados da página a ser criada (entidade Page).
-   * @returns A página criada como entidade.
-   */
   async create(data: Page): Promise<Page> {
     const prismaData = PrismaPageMapper.toPrisma(data)
-    
+
     const page = await prisma.page.create({
       data: prismaData,
     })

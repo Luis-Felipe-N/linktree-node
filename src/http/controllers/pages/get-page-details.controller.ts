@@ -22,7 +22,7 @@ export async function getPageDetails(request: FastifyRequest, reply: FastifyRepl
   try {
     const getPageDetailsUseCase = makeGetPageDetailsUseCase()
     const { page } = await getPageDetailsUseCase.execute({ slug })
-    
+
     return reply.status(200).send({ page: PagePresenter.toHTTPWithOwner(page) })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
