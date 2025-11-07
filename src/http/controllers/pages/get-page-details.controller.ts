@@ -21,8 +21,7 @@ export async function getPageDetails(request: FastifyRequest, reply: FastifyRepl
   try {
     const getPageDetailsUseCase = makeGetPageDetailsUseCase()
     const { page } = await getPageDetailsUseCase.execute({ slug })
-
-    // Dados já filtrados no repositório (owner só tem id e username)
+    
     return reply.status(200).send({ page })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {

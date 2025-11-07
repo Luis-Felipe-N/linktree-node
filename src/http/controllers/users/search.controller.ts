@@ -14,12 +14,9 @@ export async function search(request: FastifyRequest, reply: FastifyReply) {
 
   const searchUserUseCase = makeSearchUserUseCase()
 
-  const { user } = await searchUserUseCase.execute({ email, username })
+  const { existing } = await searchUserUseCase.execute({ email, username })
 
   return reply.status(200).send({
-    user: {
-      ...user,
-      password_hash: undefined,
-    },
+    existing: existing,
   })
 }

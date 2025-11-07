@@ -1,5 +1,4 @@
 import { UsersRepository } from '../repositories/user-repository'
-import { User } from '@prisma/client'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface SearchUserRequest {
@@ -8,7 +7,7 @@ interface SearchUserRequest {
 }
 
 interface SearchUserResponse {
-  user: User
+  existing: boolean
 }
 
 export class SearchUserUseCase {
@@ -22,11 +21,7 @@ export class SearchUserUseCase {
       email,
       username,
     })
-
-    if (!user) {
-      throw new ResourceNotFoundError()
-    }
-
-    return { user }
+    console.log(!!user)
+    return {existing: !!user}
   }
 }

@@ -56,6 +56,15 @@ model Theme {
   button       Button?     @relation(fields: [buttonId], references: [id])
   buttonId     String?
 
+  // Campos adicionais para compatibilidade com frontend (AppearanceTheme)
+  key         String?
+  editable    Boolean? @default(true)
+  luminance   String? // 'LIGHT' | 'DARK'
+  typeface    Json? // { color, family }
+  socialStyle Json? // { color }
+  heading     Json? // { type, logo, font, color, size, effect, logoSize }
+  footer      Json? // { logoUrl, url, color }
+
   @@map("themes")
 }
 
@@ -65,14 +74,16 @@ model Background {
   active     Boolean  @default(true)
 
   type              String
-  color             String?
   gradientStart     String?
   gradientEnd       String?
   gradientDirection String?
   imageUrl          String?
   videoUrl          String?
 
-  style String?
+  style      String?
+  className  String?
+  properties Json? // CSSProperties como JSON (inclui backgroundColor)
+  noise      Boolean? @default(false)
 
   themes Theme[]
 
@@ -84,13 +95,10 @@ model Button {
   created_at DateTime @default(now())
   active     Boolean  @default(true)
 
-  style       String
-  color       String
-  textColor   String
-  fontFamily  String?
-  fontWeight  String?
-  shadowStyle String?
-  shadowColor String?
+  style String // Tipo do botão (FILL, OUTLINE, etc)
+
+  className  String?
+  properties Json? // CSSProperties e sub-estilos como JSON (backgroundStyle, shadowStyle, cornerStyle, textStyle, shapeStyle)
 
   themes Theme[]
 

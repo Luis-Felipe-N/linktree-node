@@ -20,7 +20,7 @@ export async function createPage(request: FastifyRequest, reply: FastifyReply) {
       ),
     title: z.string().optional(),
     description: z.string().max(160).optional(), // Limitar descrição
-    profilePictureUrl: z.string().url().optional(),
+    imageUrl: z.string().url().optional(),
   })
 
   const validationResult = createPageBodySchema.safeParse(request.body)
@@ -31,7 +31,7 @@ export async function createPage(request: FastifyRequest, reply: FastifyReply) {
       .send({ message: 'Validation Error', issues: validationResult.error.format() })
   }
 
-  const { slug, title, description, profilePictureUrl } = validationResult.data
+  const { slug, title, description, imageUrl } = validationResult.data
 
   try {
     const createPageUseCase = makeCreatePageUseCase()
@@ -40,7 +40,7 @@ export async function createPage(request: FastifyRequest, reply: FastifyReply) {
       slug,
       title,
       description,
-      profilePictureUrl,
+      imageUrl,
     })
     // Omitir ownerId da resposta
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
