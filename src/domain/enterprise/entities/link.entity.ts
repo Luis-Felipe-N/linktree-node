@@ -55,10 +55,10 @@ export class Link extends Entity<LinkProps> {
 
   static create(
     props: Omit<LinkProps, 'created_at' | 'updated_at' | 'clickCount' | 'active' | 'type' | 'isLocked'> & {
-         active?: boolean
-         clickCount?: number
-         type?: string
-         isLocked?: boolean
+      active?: boolean
+      clickCount?: number
+      type?: string
+      isLocked?: boolean
     },
     id?: UniqueEntityID,
   ) {

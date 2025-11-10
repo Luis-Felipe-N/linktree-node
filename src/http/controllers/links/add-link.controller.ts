@@ -1,19 +1,20 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { makeAddLinkToPageUseCase } from '@/use-cases/factories/make-add-link-to-page-use-case'
+
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import { UnauthorizedError } from '@/use-cases/errors/unauthorized-error'
 import { LinkPresenter } from '@/http/presenters/link-presenter'
+import { makeAddLinkToPageUseCase } from '@/use-cases/factories/make-add-link-to-page-use-case'
 
 export async function addLink(request: FastifyRequest, reply: FastifyReply) {
-   if (!request.user || !request.user.sub) {
-     return reply.status(401).send({ message: 'Unauthorized.' })
-   }
+  if (!request.user || !request.user.sub) {
+    return reply.status(401).send({ message: 'Unauthorized.' })
+  }
 
   const addLinkParamsSchema = z.object({
     pageId: z.string().uuid(),
   })
-  
+
   const addLinkBodySchema = z.object({
     url: z.string().url({ message: 'Invalid URL format.' }),
     title: z.string().max(100).optional(),
@@ -50,7 +51,7 @@ export async function addLink(request: FastifyRequest, reply: FastifyReply) {
       scheduledEnd,
       type,
     })
-    
+
     return reply.status(201).send({ link: LinkPresenter.toHTTP(link) })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {

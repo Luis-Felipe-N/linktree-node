@@ -25,7 +25,7 @@ export class AddLinkToPageUseCase {
   constructor(
     private linksRepository: LinksRepository,
     private pagesRepository: PagesRepository,
-  ) {}
+  ) { }
 
   async execute({
     userId,
@@ -40,7 +40,7 @@ export class AddLinkToPageUseCase {
   }: AddLinkToPageUseCaseRequest): Promise<AddLinkToPageUseCaseResponse> {
     // Verificar se a página existe
     const page = await this.pagesRepository.findById(pageId)
-    
+
     if (!page) {
       throw new ResourceNotFoundError()
     }
