@@ -9,6 +9,10 @@ export interface LinkProps {
   thumbnailUrl?: string | null
   clickCount: number
   highlightEffect?: string | null
+  scheduledStart?: Date | null
+  scheduledEnd?: Date | null
+  type: string
+  isLocked: boolean
   active: boolean
   created_at: Date
   updated_at?: Date | null
@@ -22,6 +26,10 @@ export class Link extends Entity<LinkProps> {
   get thumbnailUrl() { return this.props.thumbnailUrl }
   get clickCount() { return this.props.clickCount }
   get highlightEffect() { return this.props.highlightEffect }
+  get scheduledStart() { return this.props.scheduledStart }
+  get scheduledEnd() { return this.props.scheduledEnd }
+  get type() { return this.props.type }
+  get isLocked() { return this.props.isLocked }
   get active() { return this.props.active }
   get created_at() { return this.props.created_at }
   get updated_at() { return this.props.updated_at }
@@ -31,6 +39,9 @@ export class Link extends Entity<LinkProps> {
   set title(title: string | null | undefined) { this.props.title = title; this.touch() }
   set thumbnailUrl(url: string | null | undefined) { this.props.thumbnailUrl = url; this.touch() }
   set highlightEffect(effect: string | null | undefined) { this.props.highlightEffect = effect; this.touch() }
+  set scheduledStart(date: Date | null | undefined) { this.props.scheduledStart = date; this.touch() }
+  set scheduledEnd(date: Date | null | undefined) { this.props.scheduledEnd = date; this.touch() }
+  set isLocked(locked: boolean) { this.props.isLocked = locked; this.touch() }
   set active(active: boolean) { this.props.active = active; this.touch() }
 
 
@@ -43,9 +54,11 @@ export class Link extends Entity<LinkProps> {
   }
 
   static create(
-    props: Omit<LinkProps, 'created_at' | 'updated_at' | 'clickCount' | 'active'> & {
-         active?: boolean, 
+    props: Omit<LinkProps, 'created_at' | 'updated_at' | 'clickCount' | 'active' | 'type' | 'isLocked'> & {
+         active?: boolean
          clickCount?: number
+         type?: string
+         isLocked?: boolean
     },
     id?: UniqueEntityID,
   ) {
@@ -54,6 +67,8 @@ export class Link extends Entity<LinkProps> {
         ...props,
         clickCount: props.clickCount ?? 0,
         active: props.active ?? true,
+        type: props.type ?? 'link',
+        isLocked: props.isLocked ?? false,
         created_at: new Date(),
         updated_at: null,
       },

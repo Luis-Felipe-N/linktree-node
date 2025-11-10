@@ -2,7 +2,8 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeAddLinkToPageUseCase } from '@/use-cases/factories/make-add-link-to-page-use-case'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
-import { PrismaPagesRepository } from '@/repositories/prisma/prisma-page-repository' // Para verificar propriedade
+import { UnauthorizedError } from '@/use-cases/errors/unauthorized-error'
+import { LinkPresenter } from '@/http/presenters/link-presenter'
 
 export async function addLink(request: FastifyRequest, reply: FastifyReply) {
    if (!request.user || !request.user.sub) {
@@ -12,12 +13,15 @@ export async function addLink(request: FastifyRequest, reply: FastifyReply) {
   const addLinkParamsSchema = z.object({
     pageId: z.string().uuid(),
   })
+  
   const addLinkBodySchema = z.object({
     url: z.string().url({ message: 'Invalid URL format.' }),
     title: z.string().max(100).optional(),
-    order: z.number().int().min(0), // Idealmente, buscar a última ordem + 1 no use case
     thumbnailUrl: z.string().url().optional(),
-    highlightEffect: z.string().optional(), // Poderia ser um enum: z.enum(['shake', 'pulse']).optional()
+    highlightEffect: z.string().optional(),
+    scheduledStart: z.string().datetime().optional().transform(val => val ? new Date(val) : undefined),
+    scheduledEnd: z.string().datetime().optional().transform(val => val ? new Date(val) : undefined),
+    type: z.enum(['link', 'embed', 'header']).optional(),
   })
 
   const paramsValidation = addLinkParamsSchema.safeParse(request.params)
@@ -31,33 +35,29 @@ export async function addLink(request: FastifyRequest, reply: FastifyReply) {
   }
 
   const { pageId } = paramsValidation.data
-  const { url, title, order, thumbnailUrl, highlightEffect } = bodyValidation.data
+  const { url, title, thumbnailUrl, highlightEffect, scheduledStart, scheduledEnd, type } = bodyValidation.data
 
   try {
-    // --- Verificação de Propriedade ---
-    const pagesRepository = new PrismaPagesRepository() // Instanciar diretamente ou via factory
-    const page = await pagesRepository.findById(pageId)
-    if (!page) {
-       throw new ResourceNotFoundError(); // Página não encontrada
-    }
-    if (page.ownerId !== request.user.sub) {
-      return reply.status(403).send({ message: 'Forbidden: You do not own this page.' })
-    }
-    // --- Fim Verificação ---
-
     const addLinkUseCase = makeAddLinkToPageUseCase()
     const { link } = await addLinkUseCase.execute({
+      userId: request.user.sub,
       pageId,
       url,
       title,
-      order, // Considerar lógica automática de ordem no Use Case
       thumbnailUrl,
       highlightEffect,
+      scheduledStart,
+      scheduledEnd,
+      type,
     })
-    return reply.status(201).send({ link })
+    
+    return reply.status(201).send({ link: LinkPresenter.toHTTP(link) })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
-      return reply.status(404).send({ message: 'Page not found.' }) // O erro pode vir da verificação ou do use case
+      return reply.status(404).send({ message: 'Page not found.' })
+    }
+    if (error instanceof UnauthorizedError) {
+      return reply.status(403).send({ message: 'Forbidden: You do not own this page.' })
     }
     console.error(error)
     return reply.status(500).send({ message: 'Internal server error' })
