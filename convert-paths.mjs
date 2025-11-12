@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const DIST_DIR = path.resolve(process.cwd(), 'dist');
-const IMPORT_REGEX = /(from\s+['"])(@\/|src\/)([^'"]+)(['"])/g;
+const SRC_DIR = path.resolve(process.cwd(), 'src');
+const IMPORT_REGEX = /(from\s+['"])(src\/)([^'"]+)(['"])/g;
 
 async function processFile(filePath) {
   try {
@@ -12,7 +12,7 @@ async function processFile(filePath) {
     const updatedContent = content.replace(IMPORT_REGEX, (match, prefix, srcPrefix, modulePath, suffix) => {
       hasChanges = true;
       const fileDir = path.dirname(filePath);
-      const targetPath = path.resolve(DIST_DIR, 'src', modulePath);
+      const targetPath = path.resolve(SRC_DIR, modulePath);
       let relativePath = path.relative(fileDir, targetPath);
 
       // Garante que o caminho relativo comece com './' ou '../'
@@ -47,9 +47,9 @@ async function traverseDir(dir) {
       if (entry.name !== 'node_modules') {
         await traverseDir(fullPath);
       }
-    } else if (/\.(js|ts|tsx)$/.test(fullPath)) {
+    } else if (/\.(ts|tsx)$/.test(fullPath)) {
       // Ignora arquivos de teste se desejar
-      if (!fullPath.endsWith('.spec.js') && !fullPath.endsWith('.e2e-spec.js')) {
+      if (!fullPath.endsWith('.spec.ts') && !fullPath.endsWith('.e2e-spec.ts')) {
         await processFile(fullPath);
       }
     }
@@ -58,7 +58,7 @@ async function traverseDir(dir) {
 
 async function run() {
   console.log('Iniciando conversão de caminhos de importação...');
-  await traverseDir(DIST_DIR);
+  await traverseDir(SRC_DIR);
   console.log('Conversão concluída!');
 }
 
