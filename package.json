@@ -38,7 +38,8 @@
     "test:e2e:watch": "vitest --dir src/http",
     "test:coverage": "vitest run --coverage",
     "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
-    "test:install-prisma-environment": "npm link vitest-environment-prisma"
+    "test:install-prisma-environment": "npm link vitest-environment-prisma",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
