@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist');
-const IMPORT_REGEX = /(from\s+['"])(@\/|src\/)([^'"]+)(['"])/g;
+const IMPORT_REGEX = /((?:from|require\()\s*['"])(@\/|src\/)([^'"]+)(['"])/g;
 
 async function processFile(filePath) {
   try {
