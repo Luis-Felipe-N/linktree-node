@@ -1,7 +1,8 @@
 import { compare } from 'bcrypt'
 import { UsersRepository } from '../repositories/user-repository'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
-import { User } from '@prisma/client'
+import type { User } from '@/domain/enterprise/entities/user.entity'
+
 
 interface AuthenticateRequest {
   username?: string
@@ -14,7 +15,7 @@ interface AuthenticateResponse {
 }
 
 export class AuthenticateUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(private usersRepository: UsersRepository) { }
 
   async execute({
     username,

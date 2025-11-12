@@ -12,9 +12,9 @@ export async function fetchLinksByPage(request: FastifyRequest, reply: FastifyRe
   const paramsValidation = fetchLinksParamsSchema.safeParse(request.params)
 
   if (!paramsValidation.success) {
-    return reply.status(400).send({ 
-      message: 'Invalid page ID.', 
-      issues: paramsValidation.error.format() 
+    return reply.status(400).send({
+      message: 'Invalid page ID.',
+      issues: paramsValidation.error.format()
     })
   }
 
@@ -24,8 +24,8 @@ export async function fetchLinksByPage(request: FastifyRequest, reply: FastifyRe
     const fetchLinksByPageUseCase = makeFetchLinksByPageUseCase()
     const { links } = await fetchLinksByPageUseCase.execute({ pageId })
 
-    return reply.status(200).send({ 
-      links: LinkPresenter.toHTTPList(links) 
+    return reply.status(200).send({
+      links: LinkPresenter.toHTTPList(links)
     })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {

@@ -30,19 +30,16 @@ export class CreatePageUseCase {
     description,
     imageUrl,
   }: CreatePageUseCaseRequest): Promise<CreatePageUseCaseResponse> {
-    // Verificar se o usuário existe
     const user = await this.usersRepository.findById(ownerId)
     if (!user) {
       throw new ResourceNotFoundError()
     }
 
-    // Verificar se o slug já está em uso
     const existingPage = await this.pagesRepository.findBySlug(slug)
     if (existingPage) {
       throw new PageSlugAlreadyExistsError()
     }
 
-    // Criar a página
     const page = Page.create({
       ownerId: new UniqueEntityID(ownerId),
       slug,

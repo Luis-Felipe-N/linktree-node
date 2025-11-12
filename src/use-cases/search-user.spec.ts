@@ -4,6 +4,7 @@ import { InMemoryUsersRepository } from '../repositories/in-memory/in-memory-use
 import { hash } from 'bcrypt'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { SearchUserUseCase } from './search-user.usecase'
+import { makeUser } from 'test/factories/make-user'
 
 let usersRepository: InMemoryUsersRepository
 let sut: SearchUserUseCase
@@ -15,46 +16,49 @@ describe('Search User UseCase', () => {
   })
 
   it('should be to able search user by username', async () => {
-    const userCreated = await usersRepository.create({
+    const userMaked = makeUser({
       username: 'testedasilva',
       email: 'testedasilva01@gmail.com',
       password_hash: await hash('123456', 6),
     })
 
-    const { user } = await sut.execute({
+    await usersRepository.create(userMaked)
+
+    const { existing } = await sut.execute({
       username: 'testedasilva',
     })
 
-    expect(user.id).toBe(userCreated.id)
+    expect(existing).toBe(true)
   })
 
   it('should be to able search user by email', async () => {
-    const userCreated = await usersRepository.create({
+    const userMaked = makeUser({
       username: 'testedasilva',
       email: 'testedasilva01@gmail.com',
       password_hash: await hash('123456', 6),
     })
+    const userCreated = await usersRepository.create(userMaked)
 
-    const { user } = await sut.execute({
+    const { existing } = await sut.execute({
       email: 'testedasilva01@gmail.com',
     })
 
-    expect(user.id).toBe(userCreated.id)
+    expect(existing).toBe(true)
   })
 
   it('should not be to able get profile with wrong username', async () => {
-    await expect(
-      sut.execute({
-        username: 'non-exists-username',
-      }),
-    ).rejects.toBeInstanceOf(ResourceNotFoundError)
+    const { existing } = await sut.execute({
+      username: 'non-exists-username',
+    })
+
+    expect(existing).toBe(false)
   })
 
   it('should not be to able get profile with wrong email', async () => {
-    await expect(
-      sut.execute({
-        email: 'non-exists-email',
-      }),
-    ).rejects.toBeInstanceOf(ResourceNotFoundError)
+    const { existing } = await sut.execute({
+      email: 'non-exists-email',
+    })
+    expect(existing).toBe(false)
   })
+
 })

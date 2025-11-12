@@ -11,7 +11,7 @@ interface SearchUserResponse {
 }
 
 export class SearchUserUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(private usersRepository: UsersRepository) { }
 
   async execute({
     username,
@@ -21,7 +21,7 @@ export class SearchUserUseCase {
       email,
       username,
     })
-    console.log(!!user)
-    return {existing: !!user}
+
+    return { existing: !!user }
   }
 }
