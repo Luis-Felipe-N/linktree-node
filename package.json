@@ -30,8 +30,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && node convert-paths.mjs",
-    "build:tsup": "tsup src api --out-dir dist --format cjs",
+    "build": "tsc --skipLibCheck && node convert-paths.mjs",
+    "build:tsup": "tsup src --out-dir build",
     "start": "node build/server.js",
     "start:dev": "tsx watch src/server.ts",
     "tests": "vitest run --dir src/use-cases",

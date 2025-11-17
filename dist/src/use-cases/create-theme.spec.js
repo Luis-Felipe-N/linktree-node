@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const vitest_1 = require("vitest");
 const create_theme_usecase_1 = require("./create-theme.usecase");
-const in_memory_themes_repository_1 = require("@/repositories/in-memory/in-memory-themes-repository");
+const in_memory_themes_repository_1 = require("../repositories/in-memory/in-memory-themes-repository");
 let themeRepository;
 let sut;
 (0, vitest_1.describe)('Create Gym Use Case', () => {

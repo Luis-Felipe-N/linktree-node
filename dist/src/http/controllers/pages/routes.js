@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pagesRoutes = void 0;
-const verify_jwt_1 = require("@/http/middlewares/verify-jwt");
+const verify_jwt_1 = require("../../middlewares/verify-jwt");
 const create_page_controller_1 = require("./create-page.controller");
 const get_page_details_controller_1 = require("./get-page-details.controller");
 const get_user_pages_controller_1 = require("./get-user-pages.controller");

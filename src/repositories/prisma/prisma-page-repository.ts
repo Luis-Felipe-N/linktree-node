@@ -69,16 +69,23 @@ export class PrismaPagesRepository implements PagesRepository {
 
   /**
    * Atualiza os dados de uma página existente.
-   * @param pageData - Um objeto contendo o ID da página e os campos a serem atualizados.
+   * @param page - A entidade Page com os dados atualizados.
    * @returns A página atualizada.
    */
-  async save(pageData: Prisma.PageUpdateInput & { id: string }) {
-    const { id, ...dataToUpdate } = pageData // Separa o ID dos dados de atualização
+  async save(page: Page): Promise<Page> {
+    const prismaData = PrismaPageMapper.toPrisma(page)
+
     const updatedPage = await prisma.page.update({
-      where: { id },
-      data: dataToUpdate,
+      where: { id: page.id.toString() },
+      data: {
+        title: prismaData.title,
+        description: prismaData.description,
+        slug: prismaData.slug,
+        updatedAt: new Date(),
+      },
     })
-    return updatedPage
+
+    return PrismaPageMapper.toDomain(updatedPage)
   }
 
   /**

@@ -11,9 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyThemePreset = void 0;
 const zod_1 = require("zod");
-const prisma_1 = require("@/lib/prisma");
-const theme_preset_helpers_1 = require("@/lib/theme-preset-helpers");
-const resource_not_found_error_1 = require("@/use-cases/errors/resource-not-found-error");
+const prisma_1 = require("../../../lib/prisma");
+const theme_preset_helpers_1 = require("../../../lib/theme-preset-helpers");
+const resource_not_found_error_1 = require("../../../use-cases/errors/resource-not-found-error");
 /**
  * POST /pages/:pageId/theme/preset
  *

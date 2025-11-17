@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AddLinkToPageUseCase = void 0;
-const link_entity_1 = require("@/domain/enterprise/entities/link.entity");
-const unique_entity_id_1 = require("@/core/entities/unique-entity-id");
+const link_entity_1 = require("../domain/enterprise/entities/link.entity");
+const unique_entity_id_1 = require("../core/entities/unique-entity-id");
 const resource_not_found_error_1 = require("./errors/resource-not-found-error");
 const unauthorized_error_1 = require("./errors/unauthorized-error");
 class AddLinkToPageUseCase {

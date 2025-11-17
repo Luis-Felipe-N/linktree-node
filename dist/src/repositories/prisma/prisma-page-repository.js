@@ -21,7 +21,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrismaPagesRepository = void 0;
-const prisma_1 = require("@/lib/prisma");
+const prisma_1 = require("../../lib/prisma");
 const prisma_page_mapper_1 = require("./mappers/prisma-page-mapper");
 class PrismaPagesRepository {
     create(data) {

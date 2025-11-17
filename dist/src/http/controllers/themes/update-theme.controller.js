@@ -11,9 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTheme = void 0;
 const zod_1 = require("zod");
-const make_update_page_theme_use_case_1 = require("@/use-cases/factories/make-update-page-theme-use-case");
-const resource_not_found_error_1 = require("@/use-cases/errors/resource-not-found-error");
-const prisma_page_repository_1 = require("@/repositories/prisma/prisma-page-repository"); // Para verificar propriedade
+const make_update_page_theme_use_case_1 = require("../../../use-cases/factories/make-update-page-theme-use-case");
+const resource_not_found_error_1 = require("../../../use-cases/errors/resource-not-found-error");
+const prisma_page_repository_1 = require("../../../repositories/prisma/prisma-page-repository"); // Para verificar propriedade
 function updateTheme(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!request.user || !request.user.sub) {

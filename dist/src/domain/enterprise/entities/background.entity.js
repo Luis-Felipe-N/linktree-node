@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Background = void 0;
-const entity_1 = require("@/core/entities/entity");
+const entity_1 = require("../../../core/entities/entity");
 class Background extends entity_1.Entity {
     get type() { return this.props.type; }
     get color() { return this.props.color; }

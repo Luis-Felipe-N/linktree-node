@@ -11,9 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPageDetails = void 0;
 const zod_1 = require("zod");
-const make_get_page_details_use_case_1 = require("@/use-cases/factories/make-get-page-details-use-case");
-const resource_not_found_error_1 = require("@/use-cases/errors/resource-not-found-error");
-const page_presenter_1 = require("@/http/presenters/page-presenter");
+const make_get_page_details_use_case_1 = require("../../../use-cases/factories/make-get-page-details-use-case");
+const resource_not_found_error_1 = require("../../../use-cases/errors/resource-not-found-error");
+const page_presenter_1 = require("../../presenters/page-presenter");
 function getPageDetails(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         const getPageDetailsParamsSchema = zod_1.z.object({

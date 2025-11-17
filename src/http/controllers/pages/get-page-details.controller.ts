@@ -1,8 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeGetPageDetailsUseCase } from '@/use-cases/factories/make-get-page-details-use-case'
+import { makeFetchLinksByPageUseCase } from '@/use-cases/factories/make-fetch-links-by-page-use-case'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import { PagePresenter } from '@/http/presenters/page-presenter'
+import { LinkPresenter } from '@/http/presenters/link-presenter'
 
 export async function getPageDetails(request: FastifyRequest, reply: FastifyReply) {
   const getPageDetailsParamsSchema = z.object({
@@ -23,7 +25,19 @@ export async function getPageDetails(request: FastifyRequest, reply: FastifyRepl
     const getPageDetailsUseCase = makeGetPageDetailsUseCase()
     const { page } = await getPageDetailsUseCase.execute({ slug })
 
-    return reply.status(200).send({ page: PagePresenter.toHTTPWithOwner(page) })
+    // Busca os links da página
+    const fetchLinksByPageUseCase = makeFetchLinksByPageUseCase()
+    const { links } = await fetchLinksByPageUseCase.execute({
+      pageId: page.id.toString()
+    })
+
+    // Filtra apenas links ativos para visualização pública
+    const activeLinks = links.filter(link => link.active)
+
+    return reply.status(200).send({
+      page: PagePresenter.toHTTPWithOwner(page),
+      links: LinkPresenter.toHTTPList(activeLinks)
+    })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return reply.status(404).send({ message: 'Page not found.' })

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const vitest_1 = require("vitest");
-const helpers_1 = require("@/test/helpers");
+const helpers_1 = require("../../../test/helpers");
 (0, vitest_1.describe)('Fetch Links by Page (E2E)', () => {
     let app;
     let token;

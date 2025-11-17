@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Theme = void 0;
-const entity_1 = require("@/core/entities/entity");
+const entity_1 = require("../../../core/entities/entity");
 class Theme extends entity_1.Entity {
     get pageId() { return this.props.pageId; }
     get title() { return this.props.title; }

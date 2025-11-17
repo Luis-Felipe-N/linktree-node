@@ -11,10 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPage = void 0;
 const zod_1 = require("zod");
-const make_create_page_use_case_1 = require("@/use-cases/factories/make-create-page-use-case");
-const page_slug_already_exists_error_1 = require("@/use-cases/errors/page-slug-already-exists-error");
-const resource_not_found_error_1 = require("@/use-cases/errors/resource-not-found-error");
-const page_presenter_1 = require("@/http/presenters/page-presenter");
+const make_create_page_use_case_1 = require("../../../use-cases/factories/make-create-page-use-case");
+const page_slug_already_exists_error_1 = require("../../../use-cases/errors/page-slug-already-exists-error");
+const resource_not_found_error_1 = require("../../../use-cases/errors/resource-not-found-error");
+const page_presenter_1 = require("../../presenters/page-presenter");
 function createPage(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!request.user || !request.user.sub) {

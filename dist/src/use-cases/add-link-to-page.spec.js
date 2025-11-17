@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const vitest_1 = require("vitest");
-const in_memory_links_repository_1 = require("@/repositories/in-memory/in-memory-links-repository");
-const in_memory_pages_repository_1 = require("@/repositories/in-memory/in-memory-pages-repository");
+const in_memory_links_repository_1 = require("../repositories/in-memory/in-memory-links-repository");
+const in_memory_pages_repository_1 = require("../repositories/in-memory/in-memory-pages-repository");
 const add_link_to_page_usecase_1 = require("./add-link-to-page.usecase");
-const page_entity_1 = require("@/domain/enterprise/entities/page.entity");
-const unique_entity_id_1 = require("@/core/entities/unique-entity-id");
+const page_entity_1 = require("../domain/enterprise/entities/page.entity");
+const unique_entity_id_1 = require("../core/entities/unique-entity-id");
 const resource_not_found_error_1 = require("./errors/resource-not-found-error");
 const unauthorized_error_1 = require("./errors/unauthorized-error");
 let linksRepository;

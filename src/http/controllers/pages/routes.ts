@@ -6,7 +6,8 @@ import { getPageBySlug } from './get-page-by-id.controller'
 import { getUserPages } from './get-user-pages.controller'
 import { addLink } from '../links/add-link.controller'
 import { fetchLinksByPage } from '../links/fetch-links-by-page.controller'
-// Importar outros controllers que você criar (updatePage, deletePage, listUserPages, etc.)
+import { updateLink } from '../links/update-link.controller'
+import { updatePage } from './update-page.controller'
 
 export async function pagesRoutes(app: FastifyInstance) {
   /**
@@ -29,6 +30,12 @@ export async function pagesRoutes(app: FastifyInstance) {
 
   // GET /pages/{pageId}/links - Lista todos os links de uma página
   app.get('/pages/:pageId/links', fetchLinksByPage)
+
+  // PUT /pages/{pageId} - Atualiza os detalhes da página (requer propriedade)
+  app.put('/pages/:pageId', { onRequest: [verifyJWT] }, updatePage)
+
+  // PUT /links/{linkId} - Atualiza um link (requer propriedade)
+  app.put('/links/:linkId', { onRequest: [verifyJWT] }, updateLink)
 
   // PUT /pages/{pageId}/theme - Atualiza/Cria o tema da página (requer propriedade)
   // app.put('/pages/:pageId/theme', { onRequest: [verifyJWT] }, updateTheme)

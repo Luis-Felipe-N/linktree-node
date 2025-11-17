@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Page = void 0;
-const entity_1 = require("@/core/entities/entity");
+const entity_1 = require("../../../core/entities/entity");
 class Page extends entity_1.Entity {
     get ownerId() { return this.props.ownerId; }
     get slug() { return this.props.slug; }

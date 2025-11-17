@@ -11,8 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authenticate = void 0;
 const zod_1 = require("zod");
-const invalid_credentials_error_1 = require("@/use-cases/errors/invalid-credentials-error");
-const make_authenticate_use_case_1 = require("@/use-cases/factories/make-authenticate-use-case");
+const invalid_credentials_error_1 = require("../../../use-cases/errors/invalid-credentials-error");
+const make_authenticate_use_case_1 = require("../../../use-cases/factories/make-authenticate-use-case");
 function authenticate(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         const authenticateBodySchema = zod_1.z.object({

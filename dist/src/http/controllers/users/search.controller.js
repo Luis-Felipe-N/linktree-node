@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.search = void 0;
 const zod_1 = require("zod");
-const make_search_user_use_case_1 = require("@/use-cases/factories/make-search-user-use-case");
+const make_search_user_use_case_1 = require("../../../use-cases/factories/make-search-user-use-case");
 function search(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         const searchQuerySchema = zod_1.z.object({
