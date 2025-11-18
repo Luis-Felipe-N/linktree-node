@@ -8,6 +8,7 @@ import { addLink } from '../links/add-link.controller'
 import { fetchLinksByPage } from '../links/fetch-links-by-page.controller'
 import { updateLink } from '../links/update-link.controller'
 import { updatePage } from './update-page.controller'
+import { updateTheme } from '../themes/update-theme.controller'
 
 export async function pagesRoutes(app: FastifyInstance) {
   /**
@@ -38,7 +39,7 @@ export async function pagesRoutes(app: FastifyInstance) {
   app.put('/links/:linkId', { onRequest: [verifyJWT] }, updateLink)
 
   // PUT /pages/{pageId}/theme - Atualiza/Cria o tema da página (requer propriedade)
-  // app.put('/pages/:pageId/theme', { onRequest: [verifyJWT] }, updateTheme)
+  app.put('/pages/:pageId/theme', { onRequest: [verifyJWT] }, updateTheme)
 
   // POST /pages/{pageId}/theme/preset - Aplica um preset completo do frontend
   // app.post('/pages/:pageId/theme/preset', { onRequest: [verifyJWT] }, applyThemePreset)

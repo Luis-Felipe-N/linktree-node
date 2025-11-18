@@ -10,13 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pagesRoutes = void 0;
-const verify_jwt_1 = require("../../middlewares/verify-jwt");
+const verify_jwt_1 = require("@/http/middlewares/verify-jwt");
 const create_page_controller_1 = require("./create-page.controller");
 const get_page_details_controller_1 = require("./get-page-details.controller");
 const get_user_pages_controller_1 = require("./get-user-pages.controller");
 const add_link_controller_1 = require("../links/add-link.controller");
 const fetch_links_by_page_controller_1 = require("../links/fetch-links-by-page.controller");
-// Importar outros controllers que você criar (updatePage, deletePage, listUserPages, etc.)
+const update_link_controller_1 = require("../links/update-link.controller");
+const update_page_controller_1 = require("./update-page.controller");
+const update_theme_controller_1 = require("../themes/update-theme.controller");
 function pagesRoutes(app) {
     return __awaiter(this, void 0, void 0, function* () {
         /**
@@ -35,8 +37,12 @@ function pagesRoutes(app) {
         app.post('/pages/:pageId/links', { onRequest: [verify_jwt_1.verifyJWT] }, add_link_controller_1.addLink);
         // GET /pages/{pageId}/links - Lista todos os links de uma página
         app.get('/pages/:pageId/links', fetch_links_by_page_controller_1.fetchLinksByPage);
+        // PUT /pages/{pageId} - Atualiza os detalhes da página (requer propriedade)
+        app.put('/pages/:pageId', { onRequest: [verify_jwt_1.verifyJWT] }, update_page_controller_1.updatePage);
+        // PUT /links/{linkId} - Atualiza um link (requer propriedade)
+        app.put('/links/:linkId', { onRequest: [verify_jwt_1.verifyJWT] }, update_link_controller_1.updateLink);
         // PUT /pages/{pageId}/theme - Atualiza/Cria o tema da página (requer propriedade)
-        // app.put('/pages/:pageId/theme', { onRequest: [verifyJWT] }, updateTheme)
+        app.put('/pages/:pageId/theme', { onRequest: [verify_jwt_1.verifyJWT] }, update_theme_controller_1.updateTheme);
         // POST /pages/{pageId}/theme/preset - Aplica um preset completo do frontend
         // app.post('/pages/:pageId/theme/preset', { onRequest: [verifyJWT] }, applyThemePreset)
         /*

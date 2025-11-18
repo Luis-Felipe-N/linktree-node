@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.makeCreatePageUseCase = void 0;
-const prisma_page_repository_1 = require("../../repositories/prisma/prisma-page-repository");
-const prisma_user_repository_1 = require("../../repositories/prisma/prisma-user-repository");
+const prisma_page_repository_1 = require("@/repositories/prisma/prisma-page-repository");
+const prisma_user_repository_1 = require("@/repositories/prisma/prisma-user-repository");
 const create_page_usecase_1 = require("../create-page.usecase");
 function makeCreatePageUseCase() {
     const pagesRepository = new prisma_page_repository_1.PrismaPagesRepository();

@@ -9,21 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.search = void 0;
-const zod_1 = require("zod");
-const make_search_user_use_case_1 = require("@/use-cases/factories/make-search-user-use-case");
-function search(request, reply) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const searchQuerySchema = zod_1.z.object({
-            email: zod_1.z.string().email().optional(),
-            username: zod_1.z.string().optional(),
+exports.UpdatePageThemeUseCase = void 0;
+const resource_not_found_error_1 = require("./errors/resource-not-found-error");
+class UpdatePageThemeUseCase {
+    constructor(pagesRepository) {
+        this.pagesRepository = pagesRepository;
+    }
+    execute({ pageId, ownerId, themeData, }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const page = yield this.pagesRepository.findById(pageId);
+            if (!page) {
+                throw new resource_not_found_error_1.ResourceNotFoundError();
+            }
+            return {
+                success: true,
+                themeData,
+            };
         });
-        const { email, username } = searchQuerySchema.parse(request.query);
-        const searchUserUseCase = (0, make_search_user_use_case_1.makeSearchUserUseCase)();
-        const { existing } = yield searchUserUseCase.execute({ email, username });
-        return reply.status(200).send({
-            existing: existing,
-        });
-    });
+    }
 }
-exports.search = search;
+exports.UpdatePageThemeUseCase = UpdatePageThemeUseCase;

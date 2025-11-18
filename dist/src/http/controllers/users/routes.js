@@ -14,7 +14,7 @@ const register_controller_1 = require("./register.controller");
 const search_controller_1 = require("./search.controller");
 const authenticate_controller_1 = require("./authenticate.controller");
 const profile_controller_1 = require("./profile.controller");
-const verify_jwt_1 = require("../../middlewares/verify-jwt");
+const verify_jwt_1 = require("@/http/middlewares/verify-jwt");
 function usersRoutes(app) {
     return __awaiter(this, void 0, void 0, function* () {
         app.post('/users', register_controller_1.register);

@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrismaLinkMapper = void 0;
-const link_entity_1 = require("../../../domain/enterprise/entities/link.entity");
-const unique_entity_id_1 = require("../../../core/entities/unique-entity-id");
+const link_entity_1 = require("@/domain/enterprise/entities/link.entity");
+const unique_entity_id_1 = require("@/core/entities/unique-entity-id");
 class PrismaLinkMapper {
     static toDomain(raw) {
         return link_entity_1.Link.create({

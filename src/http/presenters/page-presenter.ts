@@ -1,4 +1,5 @@
 import { Page } from '@/domain/enterprise/entities/page.entity'
+import { PageDetails } from '@/repositories/prisma/mappers/prisma-page-mapper'
 
 export interface PagePresenterOutput {
   id: string
@@ -14,11 +15,60 @@ export interface PagePresenterWithOwnerOutput extends PagePresenterOutput {
   ownerId: string
 }
 
+export interface PagePresenterWithDetailsOutput extends PagePresenterOutput {
+  owner?: {
+    id: string
+    username: string
+    email: string
+  }
+  theme?: {
+    id: string
+    title: string
+    key?: string | null
+    editable?: boolean | null
+    luminance?: string | null
+    typeface?: any
+    socialStyle?: any
+    heading?: any
+    footer?: any
+    background?: {
+      id: string
+      type: string
+      gradientStart?: string | null
+      gradientEnd?: string | null
+      gradientDirection?: string | null
+      imageUrl?: string | null
+      videoUrl?: string | null
+      style?: string | null
+      className?: string | null
+      properties?: any
+      noise?: boolean | null
+    }
+    button?: {
+      id: string
+      style: string
+      className?: string | null
+      properties?: any
+    }
+  }
+  links?: Array<{
+    id: string
+    url: string
+    order: number
+    title?: string | null
+    thumbnailUrl?: string | null
+    clickCount: number
+    highlightEffect?: string | null
+    scheduledStart?: Date | null
+    scheduledEnd?: Date | null
+    type: string
+    isLocked: boolean
+    active: boolean
+  }>
+}
+
 export class PagePresenter {
-  /**
-   * Apresenta uma página sem incluir o ownerId
-   * Usado para respostas públicas ou quando o owner já é conhecido
-   */
+
   static toHTTP(page: Page): PagePresenterOutput {
     return {
       id: page.id.toString(),
@@ -31,10 +81,6 @@ export class PagePresenter {
     }
   }
 
-  /**
-   * Apresenta uma página incluindo o ownerId
-   * Usado quando o owner precisa ser conhecido (listagens, etc)
-   */
   static toHTTPWithOwner(page: Page): PagePresenterWithOwnerOutput {
     return {
       id: page.id.toString(),
@@ -48,17 +94,32 @@ export class PagePresenter {
     }
   }
 
-  /**
-   * Apresenta múltiplas páginas
-   */
+  static toHTTPWithDetails(details: PageDetails): PagePresenterWithDetailsOutput {
+    const page = details.page
+
+    return {
+      id: page.id.toString(),
+      slug: page.slug,
+      title: page.title,
+      description: page.description,
+      imageUrl: page.imageUrl,
+      createdAt: page.createdAt,
+      updatedAt: page.updatedAt,
+      owner: details.owner,
+      theme: details.theme,
+      links: details.links,
+    }
+  }
+
   static toHTTPList(pages: Page[]): PagePresenterOutput[] {
     return pages.map(page => this.toHTTP(page))
   }
 
-  /**
-   * Apresenta múltiplas páginas com ownerId
-   */
   static toHTTPListWithOwner(pages: Page[]): PagePresenterWithOwnerOutput[] {
     return pages.map(page => this.toHTTPWithOwner(page))
+  }
+
+  static toHTTPListWithDetails(detailsList: PageDetails[]): PagePresenterWithDetailsOutput[] {
+    return detailsList.map(details => this.toHTTPWithDetails(details))
   }
 }

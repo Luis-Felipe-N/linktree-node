@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterUseCase = void 0;
 const bcrypt_1 = require("bcrypt");
 const user_already_exists_error_1 = require("./errors/user-already-exists-error");
-const user_entity_1 = require("../domain/enterprise/entities/user.entity");
+const user_entity_1 = require("@/domain/enterprise/entities/user.entity");
 class RegisterUseCase {
     constructor(UsersRepository) {
         this.UsersRepository = UsersRepository;

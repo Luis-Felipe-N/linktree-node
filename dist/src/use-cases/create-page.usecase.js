@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePageUseCase = void 0;
-const page_entity_1 = require("../domain/enterprise/entities/page.entity");
+const page_entity_1 = require("@/domain/enterprise/entities/page.entity");
 const page_slug_already_exists_error_1 = require("./errors/page-slug-already-exists-error");
 const resource_not_found_error_1 = require("./errors/resource-not-found-error");
-const unique_entity_id_1 = require("../core/entities/unique-entity-id");
+const unique_entity_id_1 = require("@/core/entities/unique-entity-id");
 class CreatePageUseCase {
     constructor(pagesRepository, usersRepository) {
         this.pagesRepository = pagesRepository;

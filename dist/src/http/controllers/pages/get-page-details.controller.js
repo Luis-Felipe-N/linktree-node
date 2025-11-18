@@ -11,9 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPageDetails = void 0;
 const zod_1 = require("zod");
-const make_get_page_details_use_case_1 = require("../../../use-cases/factories/make-get-page-details-use-case");
-const resource_not_found_error_1 = require("../../../use-cases/errors/resource-not-found-error");
-const page_presenter_1 = require("../../presenters/page-presenter");
+const make_get_page_details_use_case_1 = require("@/use-cases/factories/make-get-page-details-use-case");
+const make_fetch_links_by_page_use_case_1 = require("@/use-cases/factories/make-fetch-links-by-page-use-case");
+const resource_not_found_error_1 = require("@/use-cases/errors/resource-not-found-error");
+const page_presenter_1 = require("@/http/presenters/page-presenter");
+const link_presenter_1 = require("@/http/presenters/link-presenter");
 function getPageDetails(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         const getPageDetailsParamsSchema = zod_1.z.object({
@@ -29,7 +31,17 @@ function getPageDetails(request, reply) {
         try {
             const getPageDetailsUseCase = (0, make_get_page_details_use_case_1.makeGetPageDetailsUseCase)();
             const { page } = yield getPageDetailsUseCase.execute({ slug });
-            return reply.status(200).send({ page: page_presenter_1.PagePresenter.toHTTPWithOwner(page) });
+            // Busca os links da página
+            const fetchLinksByPageUseCase = (0, make_fetch_links_by_page_use_case_1.makeFetchLinksByPageUseCase)();
+            const { links } = yield fetchLinksByPageUseCase.execute({
+                pageId: page.id.toString()
+            });
+            // Filtra apenas links ativos para visualização pública
+            const activeLinks = links.filter(link => link.active);
+            return reply.status(200).send({
+                page: page_presenter_1.PagePresenter.toHTTPWithOwner(page),
+                links: link_presenter_1.LinkPresenter.toHTTPList(activeLinks)
+            });
         }
         catch (error) {
             if (error instanceof resource_not_found_error_1.ResourceNotFoundError) {

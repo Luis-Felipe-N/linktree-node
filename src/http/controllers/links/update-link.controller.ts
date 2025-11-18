@@ -13,7 +13,7 @@ export async function updateLink(request: FastifyRequest, reply: FastifyReply) {
   const updateLinkBodySchema = z.object({
     url: z.string().url().optional(),
     title: z.string().min(1).max(100).nullable().optional(),
-    thumbnailUrl: z.string().url().nullable().optional(),
+    thumbnailUrl: z.string().nullable().optional(),
     highlightEffect: z.string().nullable().optional(),
     scheduledStart: z.coerce.date().nullable().optional(),
     scheduledEnd: z.coerce.date().nullable().optional(),

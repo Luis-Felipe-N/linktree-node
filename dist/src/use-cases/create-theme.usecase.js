@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateThemeUseCase = void 0;
-const theme_entity_1 = require("../domain/enterprise/entities/theme.entity");
-const unique_entity_id_1 = require("../core/entities/unique-entity-id");
+const theme_entity_1 = require("@/domain/enterprise/entities/theme.entity");
+const unique_entity_id_1 = require("@/core/entities/unique-entity-id");
 class CreateThemeUseCase {
     constructor(themeRepository) {
         this.themeRepository = themeRepository;

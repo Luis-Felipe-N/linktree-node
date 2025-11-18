@@ -9,47 +9,43 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddLinkToPageUseCase = void 0;
-const link_entity_1 = require("@/domain/enterprise/entities/link.entity");
-const unique_entity_id_1 = require("@/core/entities/unique-entity-id");
+exports.UpdatePageUseCase = void 0;
 const resource_not_found_error_1 = require("./errors/resource-not-found-error");
 const unauthorized_error_1 = require("./errors/unauthorized-error");
-class AddLinkToPageUseCase {
-    constructor(linksRepository, pagesRepository) {
-        this.linksRepository = linksRepository;
+class UpdatePageUseCase {
+    constructor(pagesRepository) {
         this.pagesRepository = pagesRepository;
     }
-    execute({ userId, pageId, url, title, thumbnailUrl, highlightEffect, scheduledStart, scheduledEnd, type, }) {
+    execute({ pageId, userId, title, description, slug, }) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Verificar se a página existe
             const page = yield this.pagesRepository.findById(pageId);
             if (!page) {
                 throw new resource_not_found_error_1.ResourceNotFoundError();
             }
-            // Verificar se o usuário é o dono da página
+            // Verifica se o usuário é dono da página
             if (page.ownerId.toString() !== userId) {
                 throw new unauthorized_error_1.UnauthorizedError();
             }
-            // Buscar links existentes para determinar a ordem
-            const existingLinks = yield this.linksRepository.findByPageId(pageId);
-            const nextOrder = existingLinks.length;
-            // Criar o novo link
-            const link = link_entity_1.Link.create({
-                pageId: new unique_entity_id_1.UniqueEntityID(pageId),
-                url,
-                title,
-                thumbnailUrl,
-                highlightEffect,
-                scheduledStart,
-                scheduledEnd,
-                type,
-                order: nextOrder,
-            });
-            const createdLink = yield this.linksRepository.create(link);
+            // Atualiza apenas os campos fornecidos
+            if (title !== undefined) {
+                page.title = title;
+            }
+            if (description !== undefined) {
+                page.description = description;
+            }
+            if (slug !== undefined) {
+                // Verifica se o slug já está em uso por outra página
+                const existingPage = yield this.pagesRepository.findBySlug(slug);
+                if (existingPage && existingPage.id.toString() !== pageId) {
+                    throw new Error('Slug already in use');
+                }
+                page.slug = slug;
+            }
+            const updatedPage = yield this.pagesRepository.save(page);
             return {
-                link: createdLink,
+                page: updatedPage,
             };
         });
     }
 }
-exports.AddLinkToPageUseCase = AddLinkToPageUseCase;
+exports.UpdatePageUseCase = UpdatePageUseCase;

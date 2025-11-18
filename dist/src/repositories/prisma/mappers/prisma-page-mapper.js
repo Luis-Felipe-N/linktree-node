@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrismaPageMapper = void 0;
-const page_entity_1 = require("../../../domain/enterprise/entities/page.entity");
-const unique_entity_id_1 = require("../../../core/entities/unique-entity-id");
+const page_entity_1 = require("@/domain/enterprise/entities/page.entity");
+const unique_entity_id_1 = require("@/core/entities/unique-entity-id");
 class PrismaPageMapper {
     /**
      * Converte do modelo Prisma para a entidade de domínio

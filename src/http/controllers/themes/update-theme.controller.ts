@@ -2,60 +2,62 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeUpdatePageThemeUseCase } from '@/use-cases/factories/make-update-page-theme-use-case'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
-import { PrismaPagesRepository } from '@/repositories/prisma/prisma-page-repository' // Para verificar propriedade
+import { PrismaPagesRepository } from '@/repositories/prisma/prisma-page-repository'
+import { ThemePresenter } from '@/http/presenters/theme-presenter'
+import { PagePresenter } from '@/http/presenters/page-presenter'
 
 export async function updateTheme(request: FastifyRequest, reply: FastifyReply) {
-   if (!request.user || !request.user.sub) {
-     return reply.status(401).send({ message: 'Unauthorized.' })
-   }
+  if (!request.user || !request.user.sub) {
+    return reply.status(401).send({ message: 'Unauthorized.' })
+  }
 
   const updateThemeParamsSchema = z.object({
     pageId: z.string().uuid(),
   })
-  // Schema permite que IDs sejam null ou não enviados (undefined)
+
+  // Schema flexível para aceitar qualquer estrutura de tema do frontend
   const updateThemeBodySchema = z.object({
-    themeTitle: z.string().min(1).max(50),
-    backgroundId: z.string().uuid().nullable().optional(),
-    buttonId: z.string().uuid().nullable().optional(),
+    theme: z.record(z.any()), // Aceita qualquer objeto de tema
   })
 
   const paramsValidation = updateThemeParamsSchema.safeParse(request.params)
   const bodyValidation = updateThemeBodySchema.safeParse(request.body)
 
-   if (!paramsValidation.success) {
-     return reply.status(400).send({ message: 'Invalid page ID.', issues: paramsValidation.error.format() })
-   }
-   if (!bodyValidation.success) {
-     return reply.status(400).send({ message: 'Invalid theme data.', issues: bodyValidation.error.format() })
-   }
+  if (!paramsValidation.success) {
+    return reply.status(400).send({ message: 'Invalid page ID.', issues: paramsValidation.error.format() })
+  }
+  if (!bodyValidation.success) {
+    return reply.status(400).send({ message: 'Invalid theme data.', issues: bodyValidation.error.format() })
+  }
 
 
   const { pageId } = paramsValidation.data
-  const { themeTitle, backgroundId, buttonId } = bodyValidation.data
+  const { theme: themeData } = bodyValidation.data
 
   try {
-     // --- Verificação de Propriedade ---
-     const pagesRepository = new PrismaPagesRepository()
-     const page = await pagesRepository.findById(pageId)
-     if (!page) {
-        throw new ResourceNotFoundError('Page not found.'); // Erro específico
-     }
-     if (page.ownerId !== request.user.sub) {
-       return reply.status(403).send({ message: 'Forbidden: You do not own this page.' })
-     }
-     // --- Fim Verificação ---
+    const pagesRepository = new PrismaPagesRepository()
+    const page = await pagesRepository.findById(pageId)
+    if (!page) {
+      throw new ResourceNotFoundError()
+    }
+    if (page.ownerId.toString() !== request.user.sub) {
+      return reply.status(403).send({ message: 'Forbidden: You do not own this page.' })
+    }
 
-    const updateThemeUseCase = makeUpdatePageThemeUseCase()
-    const { theme } = await updateThemeUseCase.execute({
+    const updatePageThemeUseCase = makeUpdatePageThemeUseCase()
+    const { theme } = await updatePageThemeUseCase.execute({
       pageId,
-      themeTitle,
-      backgroundId: backgroundId, // Passa null, undefined ou o ID
-      buttonId: buttonId, // Passa null, undefined ou o ID
+      ownerId: request.user.sub,
+      themeData,
     })
-    return reply.status(200).send({ theme })
+
+    return reply.status(200).send({
+      message: 'Theme updated successfully',
+      theme: ThemePresenter.toHTTP(theme),
+      page: PagePresenter.toHTTP(page),
+    })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
-      // O erro pode vir da verificação da página, background ou button
       return reply.status(404).send({ message: error.message })
     }
     console.error(error)

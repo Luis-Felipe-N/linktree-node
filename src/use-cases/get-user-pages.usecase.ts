@@ -16,7 +16,7 @@ export class GetUserPagesUseCase {
     userId,
   }: GetUserPagesUseCaseRequest): Promise<GetUserPagesUseCaseResponse> {
     const pages = await this.pagesRepository.findByOwnerId(userId)
-
+    console.log(JSON.stringify(pages, null, 2))
     return {
       pages,
     }

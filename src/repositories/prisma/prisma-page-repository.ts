@@ -44,6 +44,7 @@ export class PrismaPagesRepository implements PagesRepository {
    * @returns A página encontrada ou null se não encontrada.
    */
   async findById(id: string): Promise<Page | null> {
+    console.log('Procurando página pelo ID no PrismaPagesRepository:', id)
     const page = await prisma.page.findUnique({
       where: { id },
     })
@@ -61,7 +62,7 @@ export class PrismaPagesRepository implements PagesRepository {
   async findByOwnerId(ownerId: string): Promise<Page[]> {
     const pages = await prisma.page.findMany({
       where: { ownerId },
-      orderBy: { createdAt: 'asc' }, // Ordena as páginas do usuário
+      orderBy: { createdAt: 'asc' },
     })
 
     return PrismaPageMapper.toDomainList(pages)

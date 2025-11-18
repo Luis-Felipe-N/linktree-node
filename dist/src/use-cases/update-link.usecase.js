@@ -9,47 +9,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddLinkToPageUseCase = void 0;
-const link_entity_1 = require("@/domain/enterprise/entities/link.entity");
-const unique_entity_id_1 = require("@/core/entities/unique-entity-id");
+exports.UpdateLinkUseCase = void 0;
 const resource_not_found_error_1 = require("./errors/resource-not-found-error");
 const unauthorized_error_1 = require("./errors/unauthorized-error");
-class AddLinkToPageUseCase {
+class UpdateLinkUseCase {
     constructor(linksRepository, pagesRepository) {
         this.linksRepository = linksRepository;
         this.pagesRepository = pagesRepository;
     }
-    execute({ userId, pageId, url, title, thumbnailUrl, highlightEffect, scheduledStart, scheduledEnd, type, }) {
+    execute({ linkId, userId, url, title, thumbnailUrl, highlightEffect, scheduledStart, scheduledEnd, active, order, }) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Verificar se a página existe
-            const page = yield this.pagesRepository.findById(pageId);
+            const link = yield this.linksRepository.findById(linkId);
+            if (!link) {
+                throw new resource_not_found_error_1.ResourceNotFoundError();
+            }
+            // Verifica se o usuário é dono da página à qual o link pertence
+            const page = yield this.pagesRepository.findById(link.pageId.toString());
             if (!page) {
                 throw new resource_not_found_error_1.ResourceNotFoundError();
             }
-            // Verificar se o usuário é o dono da página
             if (page.ownerId.toString() !== userId) {
                 throw new unauthorized_error_1.UnauthorizedError();
             }
-            // Buscar links existentes para determinar a ordem
-            const existingLinks = yield this.linksRepository.findByPageId(pageId);
-            const nextOrder = existingLinks.length;
-            // Criar o novo link
-            const link = link_entity_1.Link.create({
-                pageId: new unique_entity_id_1.UniqueEntityID(pageId),
-                url,
-                title,
-                thumbnailUrl,
-                highlightEffect,
-                scheduledStart,
-                scheduledEnd,
-                type,
-                order: nextOrder,
-            });
-            const createdLink = yield this.linksRepository.create(link);
+            // Atualiza apenas os campos fornecidos
+            if (url !== undefined)
+                link.url = url;
+            if (title !== undefined)
+                link.title = title;
+            if (thumbnailUrl !== undefined)
+                link.thumbnailUrl = thumbnailUrl;
+            if (highlightEffect !== undefined)
+                link.highlightEffect = highlightEffect;
+            if (scheduledStart !== undefined)
+                link.scheduledStart = scheduledStart;
+            if (scheduledEnd !== undefined)
+                link.scheduledEnd = scheduledEnd;
+            if (active !== undefined)
+                link.active = active;
+            if (order !== undefined)
+                link.order = order;
+            const updatedLink = yield this.linksRepository.update(link);
             return {
-                link: createdLink,
+                link: updatedLink,
             };
         });
     }
 }
-exports.AddLinkToPageUseCase = AddLinkToPageUseCase;
+exports.UpdateLinkUseCase = UpdateLinkUseCase;

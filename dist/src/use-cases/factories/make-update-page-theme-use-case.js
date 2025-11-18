@@ -1,15 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.makeUpdatePageThemeUseCase = void 0;
-const prisma_theme_repository_1 = require("../../repositories/prisma/prisma-theme-repository");
-const prisma_background_repository_1 = require("../../repositories/prisma/prisma-background-repository");
-const prisma_button_repository_1 = require("../../repositories/prisma/prisma-button-repository");
+const prisma_page_repository_1 = require("@/repositories/prisma/prisma-page-repository");
+const update_page_theme_usecase_1 = require("../update-page-theme.usecase");
 function makeUpdatePageThemeUseCase() {
-    const themesRepository = new prisma_theme_repository_1.PrismaThemesRepository();
-    const pagesRepository = new PrismaPagesRepository();
-    const backgroundRepository = new prisma_background_repository_1.PrismaBackgroundRepository();
-    const buttonRepository = new prisma_button_repository_1.PrismaButtonRepository();
-    const useCase = new UpdatePageThemeUseCase(themesRepository, pagesRepository, backgroundRepository, buttonRepository);
-    return useCase;
+    const pagesRepository = new prisma_page_repository_1.PrismaPagesRepository();
+    return new update_page_theme_usecase_1.UpdatePageThemeUseCase(pagesRepository);
 }
 exports.makeUpdatePageThemeUseCase = makeUpdatePageThemeUseCase;

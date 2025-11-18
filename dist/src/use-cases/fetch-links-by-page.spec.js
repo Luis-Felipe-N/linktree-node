@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const vitest_1 = require("vitest");
-const in_memory_links_repository_1 = require("../repositories/in-memory/in-memory-links-repository");
+const in_memory_links_repository_1 = require("@/repositories/in-memory/in-memory-links-repository");
 const fetch_links_by_page_usecase_1 = require("./fetch-links-by-page.usecase");
-const link_entity_1 = require("../domain/enterprise/entities/link.entity");
-const unique_entity_id_1 = require("../core/entities/unique-entity-id");
+const link_entity_1 = require("@/domain/enterprise/entities/link.entity");
+const unique_entity_id_1 = require("@/core/entities/unique-entity-id");
 let linksRepository;
 let sut;
 (0, vitest_1.describe)('FetchLinksByPageUseCase', () => {

@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserPages = void 0;
-const make_get_user_pages_use_case_1 = require("../../../use-cases/factories/make-get-user-pages-use-case");
-const page_presenter_1 = require("../../presenters/page-presenter");
+const make_get_user_pages_use_case_1 = require("@/use-cases/factories/make-get-user-pages-use-case");
+const page_presenter_1 = require("@/http/presenters/page-presenter");
 function getUserPages(request, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!request.user || !request.user.sub) {
