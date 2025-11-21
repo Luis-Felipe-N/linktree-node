@@ -12,12 +12,18 @@ export class InMemoryThemesRepository implements ThemeRepository {
   }
 
   async save(theme: Theme) {
-    const themeIndex = this.items.findIndex((item) => item.id === theme.id)
+    const themeIndex = this.items.findIndex((item) => item.id.toString() === theme.id.toString())
 
     if (themeIndex >= 0) {
       this.items[themeIndex] = theme
     }
 
     return theme
+  }
+
+  async findByPageId(pageId: string) {
+    const theme = this.items.find((item) => item.pageId.toString() === pageId)
+
+    return theme ?? null
   }
 }

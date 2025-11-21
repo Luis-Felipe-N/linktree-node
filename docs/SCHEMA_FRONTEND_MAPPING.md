@@ -89,9 +89,9 @@ model Button {
 }
 ```
 
-### Frontend Type (AppearanceButtonStyle)
+### Frontend Type (Appearancebutton)
 ```typescript
-export interface AppearanceButtonStyle {
+export interface Appearancebutton {
   type?: string | null
   backgroundStyle?: AppearanceButtonBackgroundStyle | null
   shadowStyle?: AppearanceButtonShadowStyle | null
@@ -176,7 +176,7 @@ export interface AppearanceTheme {
   editable?: boolean | null
   luminance?: Luminance | null  // 'LIGHT' | 'DARK'
   background?: AppearanceBackground | null
-  buttonStyle?: AppearanceButtonStyle | null
+  button?: Appearancebutton | null
   socialStyle?: { color?: string | null } | null
   typeface?: AppearanceTypeface | null      // { color, family }
   heading?: AppearanceHeadingOptions | null
@@ -189,7 +189,7 @@ export interface AppearanceTheme {
 - `editable` → `editable`
 - `luminance` → `luminance`
 - `backgroundId` → relação → `background` (objeto completo)
-- `buttonId` → relação → `buttonStyle` (objeto completo)
+- `buttonId` → relação → `button` (objeto completo)
 - `typeface` (JSON) → `typeface`
 - `socialStyle` (JSON) → `socialStyle`
 - `heading` (JSON) → `heading`

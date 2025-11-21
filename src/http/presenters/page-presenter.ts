@@ -5,6 +5,7 @@ import { LinkPresenter } from './link-presenter'
 
 export class PagePresenter {
   static toHTTP(page: Page) {
+    console.log('PagePresenter.toHTTP', page)
     return {
       id: page.id.toString(),
       slug: page.slug,

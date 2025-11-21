@@ -9,4 +9,22 @@ export class InMemoryButtonRepository implements ButtonRepository {
 
     return data
   }
+
+  async save(button: Button) {
+    const index = this.items.findIndex((item) => item.id.toString() === button.id.toString())
+
+    if (index >= 0) {
+      this.items[index] = button
+    } else {
+      this.items.push(button)
+    }
+
+    return button
+  }
+
+  async findById(id: string) {
+    const button = this.items.find((item) => item.id.toString() === id)
+
+    return button ?? null
+  }
 }

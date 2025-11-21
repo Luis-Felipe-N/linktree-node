@@ -29,7 +29,7 @@ export interface FrontendThemePreset {
     properties?: Record<string, any>
     noise?: boolean
   }
-  buttonStyle?: {
+  button?: {
     type?: string
     className?: string
     backgroundStyle?: { color?: string; properties?: Record<string, any> }
@@ -78,37 +78,37 @@ export async function createBackgroundFromPreset(
 }
 
 /**
- * Cria um Button no banco a partir do objeto buttonStyle do preset.
+ * Cria um Button no banco a partir do objeto button do preset.
  */
 export async function createButtonFromPreset(
   prisma: PrismaClient,
-  buttonStyle: FrontendThemePreset['buttonStyle'],
+  button: FrontendThemePreset['button'],
 ) {
-  if (!buttonStyle) return null
+  if (!button) return null
 
   // Monta o objeto properties que armazenará todos os sub-estilos
   const properties: Record<string, any> = {}
 
-  if (buttonStyle.backgroundStyle) {
-    properties.backgroundStyle = buttonStyle.backgroundStyle
+  if (button.backgroundStyle) {
+    properties.backgroundStyle = button.backgroundStyle
   }
-  if (buttonStyle.shadowStyle) {
-    properties.shadowStyle = buttonStyle.shadowStyle
+  if (button.shadowStyle) {
+    properties.shadowStyle = button.shadowStyle
   }
-  if (buttonStyle.cornerStyle) {
-    properties.cornerStyle = buttonStyle.cornerStyle
+  if (button.cornerStyle) {
+    properties.cornerStyle = button.cornerStyle
   }
-  if (buttonStyle.textStyle) {
-    properties.textStyle = buttonStyle.textStyle
+  if (button.textStyle) {
+    properties.textStyle = button.textStyle
   }
-  if (buttonStyle.shapeStyle) {
-    properties.shapeStyle = buttonStyle.shapeStyle
+  if (button.shapeStyle) {
+    properties.shapeStyle = button.shapeStyle
   }
 
   return await prisma.button.create({
     data: {
-      style: buttonStyle.type || 'FILL',
-      className: buttonStyle.className || null,
+      style: button.type || 'FILL',
+      className: button.className || null,
       properties: Object.keys(properties).length > 0 ? properties : null,
       active: true,
     },
@@ -134,7 +134,7 @@ export async function createThemeFromPreset(
   const background = await createBackgroundFromPreset(prisma, preset.background)
 
   // 2. Criar Button se houver
-  const button = await createButtonFromPreset(prisma, preset.buttonStyle)
+  const button = await createButtonFromPreset(prisma, preset.button)
 
   // 3. Criar Theme vinculando tudo
   return await prisma.theme.create({
@@ -188,7 +188,7 @@ export function themeToFrontendFormat(theme: any): FrontendThemePreset {
 
   // Button
   if (theme.button && theme.button.properties) {
-    result.buttonStyle = {
+    result.button = {
       type: theme.button.style,
       className: theme.button.className || undefined,
       ...theme.button.properties, // Espalha backgroundStyle, shadowStyle, etc.

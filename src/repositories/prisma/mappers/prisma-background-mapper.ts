@@ -4,7 +4,6 @@ import { Prisma, Background as PrismaBackground } from '@prisma/client'
 
 export class PrismaBackgroundMapper {
   static toDomain(raw: PrismaBackground): Background {
-    console.log("Mapping Prisma background to domain:", raw);
     const properties = (raw.properties as Record<string, any>) || {}
 
     return Background.create(
@@ -17,6 +16,7 @@ export class PrismaBackgroundMapper {
         imageUrl: raw.imageUrl,
         videoUrl: raw.videoUrl,
         style: raw.style,
+        properties,
         active: raw.active,
         created_at: raw.created_at,
       },
@@ -24,12 +24,13 @@ export class PrismaBackgroundMapper {
     )
   }
   static toPrisma(background: Background): Prisma.BackgroundUncheckedCreateInput {
-    const properties: Record<string, any> = {}
+    const properties: Record<string, any> = {
+      ...(background.properties ?? {}),
+    }
 
     if (background.color) {
       properties.backgroundColor = background.color
     }
-
     return {
       id: background.id.toString(),
       type: background.type,

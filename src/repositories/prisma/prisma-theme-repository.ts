@@ -2,21 +2,13 @@ import { Theme } from '@/domain/enterprise/entities/theme.entity'
 import { prisma } from '../../lib/prisma'
 import { ThemeRepository } from '../theme-repository'
 import { PrismaThemeMapper } from './mappers/prisma-theme-mapper'
-
 export class PrismaThemesRepository implements ThemeRepository {
+
   async create(theme: Theme) {
     const data = PrismaThemeMapper.toPrisma(theme)
 
     await prisma.theme.create({
-      data: {
-        id: data.id,
-        title: data.title,
-        pageId: data.pageId,
-        backgroundId: data.backgroundId,
-        buttonId: data.buttonId,
-        active: data.active,
-        created_at: data.created_at,
-      }
+      data
     })
 
     return theme
@@ -29,12 +21,7 @@ export class PrismaThemesRepository implements ThemeRepository {
       where: {
         id: theme.id.toString(),
       },
-      data: {
-        title: data.title,
-        backgroundId: data.backgroundId,
-        buttonId: data.buttonId,
-        active: data.active,
-      },
+      data
     })
 
     return theme

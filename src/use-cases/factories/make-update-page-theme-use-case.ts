@@ -6,9 +6,9 @@ import { UpdatePageThemeUseCase } from '../themes/update-page-theme.usecase'
 
 export function makeUpdatePageThemeUseCase() {
   const pagesRepository = new PrismaPagesRepository()
-  const themesRepository = new PrismaThemesRepository()
   const backgroundRepository = new PrismaBackgroundRepository()
   const buttonRepository = new PrismaButtonRepository()
+  const themesRepository = new PrismaThemesRepository()
 
   return new UpdatePageThemeUseCase(
     pagesRepository,

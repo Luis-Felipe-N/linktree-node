@@ -5,13 +5,12 @@ import { PrismaBackgroundMapper } from './prisma-background-mapper'
 import { PrismaButtonMapper } from './prisma-button-mapper'
 
 type ThemeWithDetails = PrismaTheme & {
-  background: Background
-  button: Button
+  background: Background | null
+  button: Button | null
 }
 
 interface ThemeDetailDTO {
   id: string
-  title: string
   key: string | null | undefined
   editable: boolean | null | undefined
   luminance: string | null | undefined
@@ -25,12 +24,12 @@ interface ThemeDetailDTO {
 
 export class PrismaThemeMapper {
   static toDomain(raw: ThemeWithDetails): Theme {
-    // console.log("Mapping Prisma theme to domain:", raw);
+
     return Theme.create(
       {
         pageId: new UniqueEntityID(raw.pageId),
-        background: PrismaBackgroundMapper.toDomain(raw.background),
-        button: PrismaButtonMapper.toDomain(raw.button),
+        background: raw.background ? PrismaBackgroundMapper.toDomain(raw.background) : null,
+        button: raw.button ? PrismaButtonMapper.toDomain(raw.button) : null,
         active: raw.active,
         created_at: raw.created_at,
       },
@@ -42,6 +41,8 @@ export class PrismaThemeMapper {
     return {
       id: theme.id.toString(),
       pageId: theme.pageId.toString(),
+      backgroundId: theme.background ? theme.background.id.toString() : null,
+      buttonId: theme.button ? theme.button.id.toString() : null,
       active: theme.active,
       created_at: theme.created_at,
     }
@@ -57,8 +58,8 @@ export class PrismaThemeMapper {
       socialStyle: raw.socialStyle,
       heading: raw.heading,
       footer: raw.footer,
-      background: raw.background ?? PrismaBackgroundMapper.toDomain(raw.background),
-      button: raw.button ?? PrismaButtonMapper.toDomain(raw.button),
+      background: raw.background,
+      button: raw.button,
     }
   }
 }

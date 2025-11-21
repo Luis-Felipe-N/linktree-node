@@ -11,15 +11,9 @@ export class PrismaButtonMapper {
     const properties = (raw.properties as Record<string, any>) || {}
 
     return Button.create(
-      // ... mapeamento de propriedades
       {
         style: raw.style as any,
-        color: properties.color || '#000000',
-        text_color: properties.textColor || '#FFFFFF',
-        fontFamily: properties.fontFamily || null,
-        fontWeight: properties.fontWeight || null,
-        shadowStyle: properties.shadowStyle || null,
-        shadowColor: properties.shadowColor || null,
+        properties,
         active: raw.active,
         created_at: raw.created_at,
       },
@@ -29,6 +23,7 @@ export class PrismaButtonMapper {
 
   static toPrisma(button: Button): Prisma.ButtonUncheckedCreateInput {
     const properties: Record<string, any> = {
+      ...(button.properties ?? {}),
       color: button.color,
       textColor: button.text_color,
     }

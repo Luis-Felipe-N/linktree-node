@@ -52,7 +52,7 @@ export async function applyThemePreset(
           noise: z.boolean().optional(),
         })
         .optional(),
-      buttonStyle: z
+      button: z
         .object({
           type: z.string().optional(),
           className: z.string().optional(),

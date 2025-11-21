@@ -51,7 +51,7 @@ describe('UpdatePageThemeUseCase', () => {
         gradientEnd: '#2d2d2d',
         gradientDirection: 'to bottom',
       },
-      buttonStyle: {
+      button: {
         style: 'filled',
         color: '#ffffff',
         textColor: '#000000',
@@ -125,7 +125,7 @@ describe('UpdatePageThemeUseCase', () => {
 
     const themeData = {
       key: 'buttons-only',
-      buttonStyle: {
+      button: {
         style: 'outline',
         color: '#000000',
         textColor: '#000000',

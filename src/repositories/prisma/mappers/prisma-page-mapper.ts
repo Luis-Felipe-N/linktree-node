@@ -7,8 +7,8 @@ import { LinkList } from '@/domain/enterprise/entities/link.entity'
 import { PrismaLinkMapper } from './prisma-link-mapper'
 
 type ThemeWithDetails = Theme & {
-  background?: Background | null
-  button?: Button | null
+  background: Background | null
+  button: Button | null
 }
 
 type PageWithDetails = PrismaPage & {
@@ -50,8 +50,8 @@ export class PrismaPageMapper {
   static toDetails(raw: PageWithDetails): Page {
     return Page.create({
       ownerId: new UniqueEntityID(raw.ownerId),
+      title: raw.title,
       slug: raw.slug,
-      title: raw.title ?? null,
       description: raw.description ?? null,
       imageUrl: raw.imageUrl ?? null,
       createdAt: raw.createdAt,

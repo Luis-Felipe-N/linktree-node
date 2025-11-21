@@ -40,4 +40,15 @@ export class PrismaBackgroundRepository implements BackgroundRepository {
 
     return PrismaBackgroundMapper.toDomain(backgroundUptaded)
   }
+  async findById(id: string): Promise<Background | null> {
+    const background = await prisma.background.findUnique({
+      where: { id }
+    })
+
+    if (!background) {
+      return null
+    }
+
+    return PrismaBackgroundMapper.toDomain(background)
+  }
 }

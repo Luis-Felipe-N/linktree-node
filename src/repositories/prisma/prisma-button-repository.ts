@@ -1,30 +1,38 @@
 import { Button } from '@/domain/enterprise/entities/button.entity'
 import { prisma } from '../../lib/prisma'
 import { ButtonRepository } from '../button-repository'
+import { PrismaButtonMapper } from './mappers/prisma-button-mapper'
 
 export class PrismaButtonRepository implements ButtonRepository {
   async create(button: Button) {
-    const properties: Record<string, any> = {
-      color: button.color,
-      textColor: button.text_color,
-      ...(button.properties || {}),
-    }
-
-    if (button.fontFamily) properties.fontFamily = button.fontFamily
-    if (button.fontWeight) properties.fontWeight = button.fontWeight
-    if (button.shadowStyle) properties.shadowStyle = button.shadowStyle
-    if (button.shadowColor) properties.shadowColor = button.shadowColor
-
-    await prisma.button.create({
-      data: {
-        id: button.id.toString(),
-        style: button.style.toUpperCase(),
-        properties,
-        active: button.active,
-        created_at: button.created_at,
-      }
+    const data = PrismaButtonMapper.toPrisma(button)
+    const createdButton = await prisma.button.create({
+      data
     })
 
-    return button
+    return PrismaButtonMapper.toDomain(createdButton)!
+  }
+
+  async save(button: Button) {
+    const data = PrismaButtonMapper.toPrisma(button)
+
+    const updatedButton = await prisma.button.update({
+      where: { id: button.id.toString() },
+      data
+    })
+
+    return PrismaButtonMapper.toDomain(updatedButton)!
+  }
+
+  async findById(id: string): Promise<Button | null> {
+    const button = await prisma.button.findUnique({
+      where: { id }
+    })
+
+    if (!button) {
+      return null
+    }
+
+    return PrismaButtonMapper.toDomain(button)
   }
 }
