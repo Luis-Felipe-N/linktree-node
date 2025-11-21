@@ -2,13 +2,12 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -58,11 +57,11 @@ model Theme {
   // Campos adicionais para compatibilidade com frontend (AppearanceTheme)
   key         String?
   editable    Boolean? @default(true)
-  luminance   String? 
-  typeface    Json? 
-  socialStyle Json? 
-  heading     Json? 
-  footer      Json? 
+  luminance   String?
+  typeface    Json?
+  socialStyle Json?
+  heading     Json?
+  footer      Json?
 
   @@map("themes")
 }

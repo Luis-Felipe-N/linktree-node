@@ -70,7 +70,7 @@ export async function createBackgroundFromPreset(
       imageUrl: background.imageUrl || null,
       videoUrl: background.videoUrl || null,
       style: background.style || null,
-      properties: background.properties || null,
+      properties: background.properties || {},
       noise: background.noise ?? false,
       active: true,
     },
@@ -109,7 +109,7 @@ export async function createButtonFromPreset(
     data: {
       style: button.type || 'FILL',
       className: button.className || null,
-      properties: Object.keys(properties).length > 0 ? properties : null,
+      properties: Object.keys(properties).length > 0 ? properties : {},
       active: true,
     },
   })
@@ -139,17 +139,12 @@ export async function createThemeFromPreset(
   // 3. Criar Theme vinculando tudo
   return await prisma.theme.create({
     data: {
-      title,
       key: preset.key || null,
       editable: preset.editable ?? true,
       luminance: preset.luminance || null,
       pageId,
       backgroundId: background?.id || null,
       buttonId: button?.id || null,
-      typeface: preset.typeface || null,
-      socialStyle: preset.socialStyle || null,
-      heading: preset.heading || null,
-      footer: preset.footer || null,
       active: true,
     },
     include: {

@@ -22,21 +22,11 @@ export class PrismaButtonMapper {
   }
 
   static toPrisma(button: Button): Prisma.ButtonUncheckedCreateInput {
-    const properties: Record<string, any> = {
-      ...(button.properties ?? {}),
-      color: button.color,
-      textColor: button.text_color,
-    }
-
-    if (button.fontFamily) properties.fontFamily = button.fontFamily
-    if (button.fontWeight) properties.fontWeight = button.fontWeight
-    if (button.shadowStyle) properties.shadowStyle = button.shadowStyle
-    if (button.shadowColor) properties.shadowColor = button.shadowColor
 
     return {
       id: button.id.toString(),
       style: button.style,
-      properties,
+      properties: button.properties || {},
       active: button.active,
       created_at: button.created_at,
     }
