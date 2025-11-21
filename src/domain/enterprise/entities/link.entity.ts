@@ -1,5 +1,6 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { WatchedList } from './watched-list'
 
 export interface LinkProps {
   pageId: UniqueEntityID
@@ -59,6 +60,8 @@ export class Link extends Entity<LinkProps> {
       clickCount?: number
       type?: string
       isLocked?: boolean
+      created_at?: Date
+      updated_at?: Date | null
     },
     id?: UniqueEntityID,
   ) {
@@ -69,11 +72,17 @@ export class Link extends Entity<LinkProps> {
         active: props.active ?? true,
         type: props.type ?? 'link',
         isLocked: props.isLocked ?? false,
-        created_at: new Date(),
-        updated_at: null,
+        created_at: props.created_at ?? new Date(),
+        updated_at: props.updated_at ?? null,
       },
       id,
     )
     return link
+  }
+}
+
+export class LinkList extends WatchedList<Link> {
+  compareItems(a: Link, b: Link): boolean {
+    return a.id.toString() === b.id.toString()
   }
 }

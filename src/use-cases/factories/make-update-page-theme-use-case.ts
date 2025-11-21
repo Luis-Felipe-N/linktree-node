@@ -2,7 +2,7 @@ import { PrismaPagesRepository } from '@/repositories/prisma/prisma-page-reposit
 import { PrismaThemesRepository } from '@/repositories/prisma/prisma-theme-repository'
 import { PrismaBackgroundRepository } from '@/repositories/prisma/prisma-background-repository'
 import { PrismaButtonRepository } from '@/repositories/prisma/prisma-button-repository'
-import { UpdatePageThemeUseCase } from '../update-page-theme.usecase'
+import { UpdatePageThemeUseCase } from '../themes/update-page-theme.usecase'
 
 export function makeUpdatePageThemeUseCase() {
   const pagesRepository = new PrismaPagesRepository()

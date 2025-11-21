@@ -15,9 +15,8 @@ export async function updateTheme(request: FastifyRequest, reply: FastifyReply) 
     pageId: z.string().uuid(),
   })
 
-  // Schema flexível para aceitar qualquer estrutura de tema do frontend
   const updateThemeBodySchema = z.object({
-    theme: z.record(z.any()), // Aceita qualquer objeto de tema
+    theme: z.record(z.any()),
   })
 
   const paramsValidation = updateThemeParamsSchema.safeParse(request.params)
@@ -29,7 +28,6 @@ export async function updateTheme(request: FastifyRequest, reply: FastifyReply) 
   if (!bodyValidation.success) {
     return reply.status(400).send({ message: 'Invalid theme data.', issues: bodyValidation.error.format() })
   }
-
 
   const { pageId } = paramsValidation.data
   const { theme: themeData } = bodyValidation.data

@@ -1,10 +1,11 @@
-import 'dotenv'
+import 'dotenv/config'
 import z from 'zod'
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'test', 'prod', 'production']).default('dev').transform((val) => val === 'production' ? 'prod' : val),
   PORT: z.coerce.number().default(3333),
   SECRET_KEY: z.string().default('sdokhashascxzxc'),
+  DATABASE_URL: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

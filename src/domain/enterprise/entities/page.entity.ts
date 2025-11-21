@@ -1,5 +1,9 @@
 import { Entity } from '@/core/entities/entity'
+import { Optional } from '@/core/types/optional'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import type { Theme } from './theme.entity'
+import type { User } from './user.entity'
+import type { LinkList } from './link.entity'
 
 export interface PageProps {
   ownerId: UniqueEntityID
@@ -9,6 +13,9 @@ export interface PageProps {
   imageUrl?: string | null
   createdAt: Date
   updatedAt?: Date | null
+  owner?: User
+  theme?: Theme
+  links?: LinkList
 }
 
 export class Page extends Entity<PageProps> {
@@ -19,11 +26,9 @@ export class Page extends Entity<PageProps> {
   get imageUrl() { return this.props.imageUrl }
   get createdAt() { return this.props.createdAt }
   get updatedAt() { return this.props.updatedAt }
-
-  set slug(slug: string) { this.props.slug = slug; this.touch() }
-  set title(title: string | null | undefined) { this.props.title = title; this.touch() }
-  set description(description: string | null | undefined) { this.props.description = description; this.touch() }
-  set imageUrl(url: string | null | undefined) { this.props.imageUrl = url; this.touch() }
+  get owner() { return this.props.owner }
+  get theme() { return this.props.theme }
+  get links() { return this.props.links }
 
 
   private touch() {
@@ -31,13 +36,13 @@ export class Page extends Entity<PageProps> {
   }
 
   static create(
-    props: Omit<PageProps, 'createdAt' | 'updatedAt'>,
+    props: Optional<PageProps, 'createdAt' | 'updatedAt'>,
     id?: UniqueEntityID,
   ) {
     const page = new Page(
       {
         ...props,
-        createdAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
         updatedAt: null,
       },
       id,

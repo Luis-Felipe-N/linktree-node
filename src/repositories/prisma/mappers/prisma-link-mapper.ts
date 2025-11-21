@@ -18,6 +18,8 @@ export class PrismaLinkMapper {
         type: raw.type,
         isLocked: raw.isLocked,
         active: raw.active,
+        created_at: raw.created_at,
+        updated_at: raw.updated_at,
       },
       new UniqueEntityID(raw.id),
     )

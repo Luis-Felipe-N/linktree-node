@@ -15,38 +15,29 @@ export class PrismaPagesRepository implements PagesRepository {
     return PrismaPageMapper.toDomain(page)
   }
 
-  /**
-   * Encontra uma página pelo seu slug único, incluindo detalhes relacionados.
-   * @param slug - O slug da página a ser encontrada.
-   * @returns A página com detalhes (links, tema, dono) ou null se não encontrada.
-   */
   async findBySlug(slug: string): Promise<Page | null> {
     const page = await prisma.page.findUnique({
       where: { slug },
       include: {
-        // Inclui links ativos, ordenados pela propriedade 'order'
         links: { where: { active: true }, orderBy: { order: 'asc' } },
-        // Inclui o tema associado, com seus detalhes de background e button
         theme: { include: { background: true, button: true } },
-        // Inclui informações públicas selecionadas do proprietário
-        owner: { select: { username: true, id: true } },
+        owner: true,
       },
     })
 
     if (!page) return null
 
-    return PrismaPageMapper.toDomain(page)
+    return PrismaPageMapper.toDetails(page)
   }
 
-  /**
-   * Encontra uma página pelo seu ID.
-   * @param id - O ID da página a ser encontrada.
-   * @returns A página encontrada ou null se não encontrada.
-   */
   async findById(id: string): Promise<Page | null> {
-    console.log('Procurando página pelo ID no PrismaPagesRepository:', id)
     const page = await prisma.page.findUnique({
       where: { id },
+      include: {
+        links: { where: { active: true }, orderBy: { order: 'asc' } },
+        theme: { include: { background: true, button: true } },
+        owner: true,
+      }
     })
 
     if (!page) return null
@@ -65,14 +56,9 @@ export class PrismaPagesRepository implements PagesRepository {
       orderBy: { createdAt: 'asc' },
     })
 
-    return PrismaPageMapper.toDomainList(pages)
+    return pages.map(PrismaPageMapper.toDomain)
   }
 
-  /**
-   * Atualiza os dados de uma página existente.
-   * @param page - A entidade Page com os dados atualizados.
-   * @returns A página atualizada.
-   */
   async save(page: Page): Promise<Page> {
     const prismaData = PrismaPageMapper.toPrisma(page)
 
@@ -89,14 +75,7 @@ export class PrismaPagesRepository implements PagesRepository {
     return PrismaPageMapper.toDomain(updatedPage)
   }
 
-  /**
-   * Deleta uma página pelo seu ID.
-   * ATENÇÃO: Isso também pode deletar dados relacionados em cascata, dependendo da configuração do schema.
-   * @param id - O ID da página a ser deletada.
-   */
   async delete(id: string): Promise<void> {
-    // Adicionar lógica transacional se necessário para deletar dependências
-    // como Links e Theme antes, se não houver cascade delete configurado.
     await prisma.page.delete({
       where: { id },
     })

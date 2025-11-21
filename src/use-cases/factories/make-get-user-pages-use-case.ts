@@ -1,5 +1,5 @@
 import { PrismaPagesRepository } from '@/repositories/prisma/prisma-page-repository'
-import { GetUserPagesUseCase } from '../get-user-pages.usecase'
+import { GetUserPagesUseCase } from '../pages/get-user-pages.usecase'
 
 export function makeGetUserPagesUseCase() {
   const pagesRepository = new PrismaPagesRepository()

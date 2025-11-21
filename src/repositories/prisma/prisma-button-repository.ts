@@ -7,6 +7,7 @@ export class PrismaButtonRepository implements ButtonRepository {
     const properties: Record<string, any> = {
       color: button.color,
       textColor: button.text_color,
+      ...(button.properties || {}),
     }
 
     if (button.fontFamily) properties.fontFamily = button.fontFamily

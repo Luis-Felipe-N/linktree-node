@@ -23,7 +23,7 @@ export async function getPageBySlug(request: FastifyRequest, reply: FastifyReply
     const getPageDetailsUseCase = makeGetPageDetailsUseCase()
     const { page } = await getPageDetailsUseCase.execute({ slug })
 
-    return reply.status(200).send({ page: PagePresenter.toHTTPWithOwner(page) })
+    return reply.status(200).send({ page: PagePresenter.toHTTP(page) })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return reply.status(404).send({ message: 'Page not found.' })

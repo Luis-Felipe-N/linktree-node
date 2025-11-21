@@ -18,7 +18,7 @@ export async function getUserPages(
 
     const { pages } = await getUserPagesUseCase.execute({ userId })
 
-    return reply.status(200).send({ pages: PagePresenter.toHTTPListWithOwner(pages) })
+    return reply.status(200).send({ pages: pages.map(PagePresenter.toHTTP) })
   } catch (error) {
     console.error(error)
     return reply.status(500).send({ message: 'Internal server error' })

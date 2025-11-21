@@ -25,18 +25,8 @@ export async function getPageDetails(request: FastifyRequest, reply: FastifyRepl
     const getPageDetailsUseCase = makeGetPageDetailsUseCase()
     const { page } = await getPageDetailsUseCase.execute({ slug })
 
-    // Busca os links da página
-    const fetchLinksByPageUseCase = makeFetchLinksByPageUseCase()
-    const { links } = await fetchLinksByPageUseCase.execute({
-      pageId: page.id.toString()
-    })
-
-    // Filtra apenas links ativos para visualização pública
-    const activeLinks = links.filter(link => link.active)
-
     return reply.status(200).send({
-      page: PagePresenter.toHTTPWithOwner(page),
-      links: LinkPresenter.toHTTPList(activeLinks)
+      page: PagePresenter.toHTTP(page),
     })
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {

@@ -1,12 +1,13 @@
 import { Background } from '@/domain/enterprise/entities/background.entity'
 import { prisma } from '../../lib/prisma'
 import { BackgroundRepository } from '../background-repository'
+import { PrismaBackgroundMapper } from './mappers/prisma-background-mapper'
 
 export class PrismaBackgroundRepository implements BackgroundRepository {
   async create(background: Background) {
-    const properties: Record<string, any> = {}
+    const properties: Record<string, any> = background.properties || {}
 
-    if (background.color) {
+    if (background.color && !properties.backgroundColor) {
       properties.backgroundColor = background.color
     }
 
@@ -27,5 +28,16 @@ export class PrismaBackgroundRepository implements BackgroundRepository {
     })
 
     return background
+  }
+
+  async save(background: Background): Promise<Background> {
+    const data = PrismaBackgroundMapper.toPrisma(background)
+
+    const backgroundUptaded = await prisma.background.update({
+      where: { id: background.id.toString() },
+      data
+    })
+
+    return PrismaBackgroundMapper.toDomain(backgroundUptaded)
   }
 }

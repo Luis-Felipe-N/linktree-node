@@ -41,12 +41,7 @@ export async function authenticateUser(app: FastifyInstance, username: string, p
     },
   })
 
-  console.log('Auth response status:', response.statusCode)
-  console.log('Auth response body:', response.body)
-
   const body = JSON.parse(response.body)
-  console.log('Parsed body:', body)
-  console.log('Token:', body.token)
 
   return body.token
 }

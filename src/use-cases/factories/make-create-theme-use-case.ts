@@ -1,5 +1,5 @@
 import { PrismaThemesRepository } from '@/repositories/prisma/prisma-theme-repository'
-import { CreateThemeUseCase } from '../create-theme.usecase'
+import { CreateThemeUseCase } from '../themes/create-theme.usecase'
 
 export function makeCreateThemeUseCase() {
   const themesRepository = new PrismaThemesRepository()

@@ -1,5 +1,5 @@
 import { PrismaLinksRepository } from "@/repositories/prisma/prisma-link-repository"
-import { FetchLinksByPageUseCase } from "../fetch-links-by-page.usecase"
+import { FetchLinksByPageUseCase } from "../links/fetch-links-by-page.usecase"
 
 export function makeFetchLinksByPageUseCase() {
   const linksRepository = new PrismaLinksRepository()

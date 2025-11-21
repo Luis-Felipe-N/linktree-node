@@ -3,12 +3,12 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DATABASE_URL_UNPOOLED")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -44,7 +44,6 @@ model Page {
 
 model Theme {
   id         String   @id @default(uuid())
-  title      String
   created_at DateTime @default(now())
   active     Boolean  @default(true)
 
@@ -59,11 +58,11 @@ model Theme {
   // Campos adicionais para compatibilidade com frontend (AppearanceTheme)
   key         String?
   editable    Boolean? @default(true)
-  luminance   String? // 'LIGHT' | 'DARK'
-  typeface    Json? // { color, family }
-  socialStyle Json? // { color }
-  heading     Json? // { type, logo, font, color, size, effect, logoSize }
-  footer      Json? // { logoUrl, url, color }
+  luminance   String? 
+  typeface    Json? 
+  socialStyle Json? 
+  heading     Json? 
+  footer      Json? 
 
   @@map("themes")
 }
@@ -82,7 +81,7 @@ model Background {
 
   style      String?
   className  String?
-  properties Json? // CSSProperties como JSON (inclui backgroundColor)
+  properties Json?
   noise      Boolean? @default(false)
 
   themes Theme[]
