@@ -1,4 +1,4 @@
-import type { Background } from "@/domain/enterprise/entities/background.entity";
+import type { Background } from "src/domain/enterprise/entities/background.entity";
 
 
 export interface BackgroundRepository {

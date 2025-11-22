@@ -1,4 +1,4 @@
-import { Page } from '@/domain/enterprise/entities/page.entity'
+import { Page } from 'src/domain/enterprise/entities/page.entity'
 import type { PagesRepository } from '../page-repository'
 
 export class InMemoryPagesRepository implements PagesRepository {

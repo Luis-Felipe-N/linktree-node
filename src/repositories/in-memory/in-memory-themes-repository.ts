@@ -1,4 +1,4 @@
-import type { Theme } from '@/domain/enterprise/entities/theme.entity'
+import type { Theme } from 'src/domain/enterprise/entities/theme.entity'
 import { ThemeRepository } from '../theme-repository'
 import { randomUUID } from 'crypto'
 

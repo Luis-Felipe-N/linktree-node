@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
-import { app } from '@/app'
-import { prisma } from '@/lib/prisma'
+import { app } from 'src/app'
+import { prisma } from 'src/lib/prisma'
 
 export async function createTestApp(): Promise<FastifyInstance> {
   await app.ready()

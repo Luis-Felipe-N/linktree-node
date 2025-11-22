@@ -1,4 +1,4 @@
-import { Link } from '@/domain/enterprise/entities/link.entity'
+import { Link } from 'src/domain/enterprise/entities/link.entity'
 import type { LinksRepository } from '../link-repository'
 
 export class InMemoryLinksRepository implements LinksRepository {

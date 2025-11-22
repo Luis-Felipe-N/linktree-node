@@ -7,7 +7,6 @@
     "bcrypt": "^5.1.1",
     "dotenv": "^16.6.1",
     "fastify": "^4.24.3",
-    "module-alias": "^2.2.3",
     "pg": "^8.16.3",
     "supertest": "^6.3.3",
     "vite-tsconfig-paths": "^4.2.1",
@@ -33,9 +32,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --skipLibCheck && node convert-paths.mjs",
-    "build:tsup": "tsup src --out-dir build",
-    "start": "node build/server.js",
+    "build": "tsup-node src --clean --out-dir dist",
+    "start": "node dist/server.js",
     "start:dev": "tsx watch src/server.ts",
     "tests": "vitest run --dir src/use-cases",
     "test:watch": "vitest --dir src/use-cases",
@@ -50,9 +48,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "_moduleAliases": {
-    "@": "./src",
-    "test": "./test"
-  }
+  "description": ""
 }

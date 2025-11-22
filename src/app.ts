@@ -1,10 +1,10 @@
 import fastify from 'fastify'
 import { ZodError } from 'zod'
-import { env } from './env'
+import { env } from './infra/env'
 import fastifyJwt from '@fastify/jwt'
 import cors from '@fastify/cors'
-import { usersRoutes } from './http/controllers/users/routes'
-import { pagesRoutes } from './http/controllers/pages/routes'
+import { usersRoutes } from './infra/http/controllers/users/routes'
+import { pagesRoutes } from './infra/http/controllers/pages/routes'
 
 export const app = fastify()
 

@@ -1,5 +1,5 @@
-import { Entity } from '@/core/entities/entity'
-import type { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Entity } from 'src/core/entities/entity'
+import type { UniqueEntityID } from 'src/core/entities/unique-entity-id'
 
 export interface UserProps {
   username: string
@@ -17,8 +17,8 @@ export class User extends Entity<UserProps> {
   get updated_at() { return this.props.updated_at }
 
   set username(username: string) {
-      this.props.username = username
-      this.touch()
+    this.props.username = username
+    this.touch()
   }
 
   private touch() {
@@ -26,7 +26,7 @@ export class User extends Entity<UserProps> {
   }
 
   static create(
-    props: Omit<UserProps, 'created_at' | 'updated_at'>, 
+    props: Omit<UserProps, 'created_at' | 'updated_at'>,
     id?: UniqueEntityID,
   ) {
     const user = new User(

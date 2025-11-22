@@ -1,4 +1,4 @@
-import type { Background } from '@/domain/enterprise/entities/background.entity'
+import type { Background } from 'src/domain/enterprise/entities/background.entity'
 import { BackgroundRepository } from '../background-repository'
 
 export class InMemoryBackgroundRepository implements BackgroundRepository {
