@@ -1,4 +1,4 @@
-import type { User } from 'src/domain/enterprise/entities/user.entity'
+import type { User } from '../../../enterprise/entities/user.entity'
 import { UsersRepository } from '../../../../repositories/user-repository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 

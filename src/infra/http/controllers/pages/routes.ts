@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { verifyJWT } from 'src/infra/http/middlewares/verify-jwt'
+import { verifyJWT } from '../../middlewares/verify-jwt'
 import { createPage } from './create-page.controller'
 import { getPageDetails } from './get-page-details.controller'
 import { getPageBySlug } from './get-page-by-id.controller'

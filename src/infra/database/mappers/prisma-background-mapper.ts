@@ -1,5 +1,5 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
-import { Background } from 'src/domain/enterprise/entities/background.entity'
+import { UniqueEntityID } from '../../../core/entities/unique-entity-id'
+import { Background } from '../../../domain/enterprise/entities/background.entity'
 import { Prisma, Background as PrismaBackground } from '@prisma/client'
 
 export class PrismaBackgroundMapper {

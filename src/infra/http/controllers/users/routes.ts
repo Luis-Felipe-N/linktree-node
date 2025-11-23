@@ -3,7 +3,7 @@ import { register } from './register.controller'
 import { search } from './search.controller'
 import { authenticate } from './authenticate.controller'
 import { profile } from './profile.controller'
-import { verifyJWT } from 'src/infra/http/middlewares/verify-jwt'
+import { verifyJWT } from '../../middlewares/verify-jwt'
 
 export async function usersRoutes(app: FastifyInstance) {
   app.post('/users', register)

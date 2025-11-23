@@ -1,4 +1,4 @@
-import { Theme } from 'src/domain/enterprise/entities/theme.entity'
+import { Theme } from '../../../domain/enterprise/entities/theme.entity'
 import { prisma } from '../../../lib/prisma'
 import { ThemeRepository } from '../../../repositories/theme-repository'
 import { PrismaThemeMapper } from '../mappers/prisma-theme-mapper'

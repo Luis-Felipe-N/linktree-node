@@ -1,5 +1,5 @@
-import { prisma } from 'src/lib/prisma'
-import { Link } from 'src/domain/enterprise/entities/link.entity'
+import { prisma } from '../../../lib/prisma'
+import { Link } from '../../../domain/enterprise/entities/link.entity'
 import type { LinksRepository } from '../../../repositories/link-repository'
 import { PrismaLinkMapper } from '../mappers/prisma-link-mapper'
 

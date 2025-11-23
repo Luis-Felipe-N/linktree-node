@@ -1,4 +1,4 @@
-import { Background } from 'src/domain/enterprise/entities/background.entity'
+import { Background } from '../../../domain/enterprise/entities/background.entity'
 import { prisma } from '../../../lib/prisma'
 import { BackgroundRepository } from '../../../repositories/background-repository'
 import { PrismaBackgroundMapper } from '../mappers/prisma-background-mapper'

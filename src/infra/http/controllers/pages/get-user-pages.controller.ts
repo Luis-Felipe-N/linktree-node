@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { makeGetUserPagesUseCase } from 'src/infra/factories/make-get-user-pages-use-case'
-import { PagePresenter } from 'src/infra/http/presenters/page-presenter'
+import { makeGetUserPagesUseCase } from '../../../factories/make-get-user-pages-use-case'
+import { PagePresenter } from '../../presenters/page-presenter'
 
 export async function getUserPages(
   request: FastifyRequest,

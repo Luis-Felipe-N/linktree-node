@@ -1,15 +1,15 @@
-import type { PagesRepository } from 'src/repositories/page-repository'
-import type { ThemeRepository } from 'src/repositories/theme-repository'
-import type { BackgroundRepository } from 'src/repositories/background-repository'
-import type { ButtonRepository } from 'src/repositories/button-repository'
+import type { PagesRepository } from '../../../../repositories/page-repository'
+import type { ThemeRepository } from '../../../../repositories/theme-repository'
+import type { BackgroundRepository } from '../../../../repositories/background-repository'
+import type { ButtonRepository } from '../../../../repositories/button-repository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
-import { Theme } from 'src/domain/enterprise/entities/theme.entity'
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
+import { Theme } from '../../../enterprise/entities/theme.entity'
+import { UniqueEntityID } from '../../../../core/entities/unique-entity-id'
 import { maketheme } from '../../factories/make-theme'
 import { makeBackground } from '../../factories/make-background'
 import { makeButton } from '../../factories/make-button'
-import type { Background, BackgroundProps } from 'src/domain/enterprise/entities/background.entity'
-import type { Button, ButtonProps } from 'src/domain/enterprise/entities/button.entity'
+import type { Background, BackgroundProps } from '../../../enterprise/entities/background.entity'
+import type { Button, ButtonProps } from '../../../enterprise/entities/button.entity'
 
 type BackgroundInput = Partial<BackgroundProps> | null | undefined
 type buttonInput = (Partial<Omit<ButtonProps, 'text_color'>> & {

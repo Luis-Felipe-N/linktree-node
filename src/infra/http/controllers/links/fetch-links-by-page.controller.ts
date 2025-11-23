@@ -1,8 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error'
-import { LinkPresenter } from 'src/infra/http/presenters/link-presenter'
-import { makeFetchLinksByPageUseCase } from 'src/infra/factories/make-fetch-links-by-page-use-case'
+import { ResourceNotFoundError } from '../../../../domain/application/use-cases/errors/resource-not-found-error'
+import { LinkPresenter } from '../../presenters/link-presenter'
+import { makeFetchLinksByPageUseCase } from '../../../factories/make-fetch-links-by-page-use-case'
 
 export async function fetchLinksByPage(request: FastifyRequest, reply: FastifyReply) {
   const fetchLinksParamsSchema = z.object({

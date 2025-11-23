@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error'
-import { UnauthorizedError } from 'src/domain/application/use-cases/errors/unauthorized-error'
-import { LinkPresenter } from 'src/infra/http/presenters/link-presenter'
-import { makeAddLinkToPageUseCase } from 'src/infra/factories/make-add-link-to-page-use-case'
+import { ResourceNotFoundError } from '../../../../domain/application/use-cases/errors/resource-not-found-error'
+import { UnauthorizedError } from '../../../../domain/application/use-cases/errors/unauthorized-error'
+import { LinkPresenter } from '../../presenters/link-presenter'
+import { makeAddLinkToPageUseCase } from '../../../factories/make-add-link-to-page-use-case'
 
 export async function addLink(request: FastifyRequest, reply: FastifyReply) {
   if (!request.user || !request.user.sub) {

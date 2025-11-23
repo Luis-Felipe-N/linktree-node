@@ -1,5 +1,5 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
-import { Theme } from 'src/domain/enterprise/entities/theme.entity'
+import { UniqueEntityID } from '../../../core/entities/unique-entity-id'
+import { Theme } from '../../enterprise/entities/theme.entity'
 
 export function maketheme(themeData: Partial<Theme>, id?: UniqueEntityID): Theme {
   const theme = Theme.create(

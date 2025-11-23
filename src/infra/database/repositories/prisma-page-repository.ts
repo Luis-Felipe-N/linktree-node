@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client'
-import { prisma } from 'src/lib/prisma'
-import { Page } from 'src/domain/enterprise/entities/page.entity'
+import { prisma } from '../../../lib/prisma'
+import { Page } from '../../../domain/enterprise/entities/page.entity'
 import type { PagesRepository } from '../../../repositories/page-repository'
 import { PrismaPageMapper } from '../mappers/prisma-page-mapper'
 

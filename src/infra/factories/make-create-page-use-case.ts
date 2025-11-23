@@ -1,6 +1,6 @@
-import { PrismaPagesRepository } from 'src/infra/database/repositories/prisma-page-repository'
-import { PrismaUsersRepository } from 'src/infra/database/repositories/prisma-user-repository'
-import { CreatePageUseCase } from 'src/domain/application/use-cases/pages/create-page.usecase'
+import { PrismaPagesRepository } from '../database/repositories/prisma-page-repository'
+import { PrismaUsersRepository } from '../database/repositories/prisma-user-repository'
+import { CreatePageUseCase } from '../../domain/application/use-cases/pages/create-page.usecase'
 
 export function makeCreatePageUseCase() {
   const pagesRepository = new PrismaPagesRepository()

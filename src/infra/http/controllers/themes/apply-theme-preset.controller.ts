@@ -1,12 +1,12 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { prisma } from 'src/lib/prisma'
+import { prisma } from '../../../../lib/prisma'
 import {
   createThemeFromPreset,
   themeToFrontendFormat,
   type FrontendThemePreset,
-} from 'src/lib/theme-preset-helpers'
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error'
+} from '../../../../lib/theme-preset-helpers'
+import { ResourceNotFoundError } from '../../../../domain/application/use-cases/errors/resource-not-found-error'
 
 /**
  * POST /pages/:pageId/theme/preset

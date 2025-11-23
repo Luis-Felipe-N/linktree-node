@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { makeGetPageDetailsUseCase } from 'src/infra/factories/make-get-page-details-use-case'
-import { makeFetchLinksByPageUseCase } from 'src/infra/factories/make-fetch-links-by-page-use-case'
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error'
-import { PagePresenter } from 'src/infra/http/presenters/page-presenter'
-import { LinkPresenter } from 'src/infra/http/presenters/link-presenter'
+import { makeGetPageDetailsUseCase } from '../../../factories/make-get-page-details-use-case'
+import { makeFetchLinksByPageUseCase } from '../../../factories/make-fetch-links-by-page-use-case'
+import { ResourceNotFoundError } from '../../../../domain/application/use-cases/errors/resource-not-found-error'
+import { PagePresenter } from '../../presenters/page-presenter'
+import { LinkPresenter } from '../../presenters/link-presenter'
 
 export async function getPageDetails(request: FastifyRequest, reply: FastifyReply) {
   const getPageDetailsParamsSchema = z.object({

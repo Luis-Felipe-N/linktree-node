@@ -2,9 +2,9 @@ import { hash } from 'bcrypt'
 import { UsersRepository } from '../../../../repositories/user-repository'
 import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
 
-import { ThemeRepository } from 'src/repositories/theme-repository'
-import { Theme } from 'src/domain/enterprise/entities/theme.entity'
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
+import { ThemeRepository } from '../../../../repositories/theme-repository'
+import { Theme } from '../../../enterprise/entities/theme.entity'
+import { UniqueEntityID } from '../../../../core/entities/unique-entity-id'
 
 interface CreateThemeUserRequest {
   title: string

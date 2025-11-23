@@ -1,4 +1,4 @@
-import type { Link } from 'src/domain/enterprise/entities/link.entity'
+import type { Link } from '../domain/enterprise/entities/link.entity'
 
 export interface LinksRepository {
   create(data: Link): Promise<Link>

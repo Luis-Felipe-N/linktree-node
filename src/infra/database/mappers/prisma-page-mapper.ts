@@ -1,9 +1,9 @@
 import { Page as PrismaPage, Prisma, User, Theme, Link, Background, Button } from '@prisma/client'
-import { Page } from 'src/domain/enterprise/entities/page.entity'
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
+import { Page } from '../../../domain/enterprise/entities/page.entity'
+import { UniqueEntityID } from '../../../core/entities/unique-entity-id'
 import { PrismaUserMapper } from './prisma-user-mapper'
 import { PrismaThemeMapper } from './prisma-theme-mapper'
-import { LinkList } from 'src/domain/enterprise/entities/link.entity'
+import { LinkList } from '../../../domain/enterprise/entities/link.entity'
 import { PrismaLinkMapper } from './prisma-link-mapper'
 
 type ThemeWithDetails = Theme & {

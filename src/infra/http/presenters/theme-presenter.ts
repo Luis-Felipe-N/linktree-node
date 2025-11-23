@@ -1,4 +1,4 @@
-import { Theme } from 'src/domain/enterprise/entities/theme.entity'
+import { Theme } from '../../../domain/enterprise/entities/theme.entity'
 import { BackgroundPresenter } from './background-presenter'
 import { ButtonPresenter } from './button-presenter'
 

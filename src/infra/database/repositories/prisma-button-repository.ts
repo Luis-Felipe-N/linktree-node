@@ -1,4 +1,4 @@
-import { Button } from 'src/domain/enterprise/entities/button.entity'
+import { Button } from '../../../domain/enterprise/entities/button.entity'
 import { prisma } from '../../../lib/prisma'
 import { ButtonRepository } from '../../../repositories/button-repository'
 import { PrismaButtonMapper } from '../mappers/prisma-button-mapper'

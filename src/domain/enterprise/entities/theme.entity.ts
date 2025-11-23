@@ -1,8 +1,8 @@
-import { Entity } from 'src/core/entities/entity'
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
+import { Entity } from '../../../core/entities/entity'
+import { UniqueEntityID } from '../../../core/entities/unique-entity-id'
 import type { Background } from './background.entity'
 import type { Button } from './button.entity'
-import type { Optional } from 'src/core/types/optional'
+import type { Optional } from '../../../core/types/optional'
 
 export interface ThemeProps {
   pageId: UniqueEntityID

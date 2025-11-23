@@ -1,5 +1,5 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
-import { Button } from 'src/domain/enterprise/entities/button.entity'
+import { UniqueEntityID } from '../../../core/entities/unique-entity-id'
+import { Button } from '../../../domain/enterprise/entities/button.entity'
 import { Prisma, Button as PrismaButton } from '@prisma/client'
 
 export class PrismaButtonMapper {

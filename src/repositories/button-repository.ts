@@ -1,4 +1,4 @@
-import type { Button } from "src/domain/enterprise/entities/button.entity";
+import type { Button } from "../domain/enterprise/entities/button.entity";
 
 
 export interface ButtonRepository {

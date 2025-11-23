@@ -1,5 +1,5 @@
 
-import type { User } from 'src/domain/enterprise/entities/user.entity'
+import type { User } from '../../domain/enterprise/entities/user.entity'
 import {
   FindByEmailOrUsernameParams,
   UsersRepository,

@@ -1,4 +1,4 @@
-import { User } from 'src/domain/enterprise/entities/user.entity'
+import { User } from '../../../domain/enterprise/entities/user.entity'
 
 export interface UserPresenterOutput {
   id: string

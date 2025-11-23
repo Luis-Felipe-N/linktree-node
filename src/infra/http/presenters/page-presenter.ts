@@ -1,4 +1,4 @@
-import { Page } from 'src/domain/enterprise/entities/page.entity'
+import { Page } from '../../../domain/enterprise/entities/page.entity'
 import { UserPresenter } from './user-presenter'
 import { ThemePresenter } from './theme-presenter'
 import { LinkPresenter } from './link-presenter'

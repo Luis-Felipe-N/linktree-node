@@ -1,9 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { makeUpdatePageUseCase } from 'src/infra/factories/make-update-page-use-case'
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error'
-import { UnauthorizedError } from 'src/domain/application/use-cases/errors/unauthorized-error'
-import { PagePresenter } from 'src/infra/http/presenters/page-presenter'
+import { makeUpdatePageUseCase } from '../../../factories/make-update-page-use-case'
+import { ResourceNotFoundError } from '../../../../domain/application/use-cases/errors/resource-not-found-error'
+import { UnauthorizedError } from '../../../../domain/application/use-cases/errors/unauthorized-error'
+import { PagePresenter } from '../../presenters/page-presenter'
 
 export async function updatePage(request: FastifyRequest, reply: FastifyReply) {
   const updatePageParamsSchema = z.object({

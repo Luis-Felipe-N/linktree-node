@@ -1,5 +1,5 @@
-import { Page } from 'src/domain/enterprise/entities/page.entity'
-import type { PagesRepository } from 'src/repositories/page-repository'
+import { Page } from '../../../enterprise/entities/page.entity'
+import type { PagesRepository } from '../../../../repositories/page-repository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 interface GetPageDetailsUseCaseRequest {

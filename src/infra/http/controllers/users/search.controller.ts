@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 
 import { z } from 'zod'
 
-import { makeSearchUserUseCase } from 'src/infra/factories/make-search-user-use-case'
+import { makeSearchUserUseCase } from '../../../factories/make-search-user-use-case'
 
 export async function search(request: FastifyRequest, reply: FastifyReply) {
   const searchQuerySchema = z.object({

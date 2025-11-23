@@ -1,9 +1,9 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error'
-import { UnauthorizedError } from 'src/domain/application/use-cases/errors/unauthorized-error'
-import { LinkPresenter } from 'src/infra/http/presenters/link-presenter'
-import { makeUpdateLinkUseCase } from 'src/infra/factories/make-update-link-use-case'
+import { ResourceNotFoundError } from '../../../../domain/application/use-cases/errors/resource-not-found-error'
+import { UnauthorizedError } from '../../../../domain/application/use-cases/errors/unauthorized-error'
+import { LinkPresenter } from '../../presenters/link-presenter'
+import { makeUpdateLinkUseCase } from '../../../factories/make-update-link-use-case'
 
 export async function updateLink(request: FastifyRequest, reply: FastifyReply) {
   const updateLinkParamsSchema = z.object({

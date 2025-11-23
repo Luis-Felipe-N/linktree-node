@@ -1,5 +1,5 @@
-import type { Page } from 'src/domain/enterprise/entities/page.entity'
-import type { PagesRepository } from 'src/repositories/page-repository'
+import type { Page } from '../../../enterprise/entities/page.entity'
+import type { PagesRepository } from '../../../../repositories/page-repository'
 
 interface GetUserPagesUseCaseRequest {
   userId: string

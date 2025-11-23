@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { makeUpdatePageThemeUseCase } from 'src/infra/factories/make-update-page-theme-use-case'
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error'
-import { PrismaPagesRepository } from 'src/infra/database/repositories/prisma-page-repository'
-import { ThemePresenter } from 'src/infra/http/presenters/theme-presenter'
-import { PagePresenter } from 'src/infra/http/presenters/page-presenter'
+import { makeUpdatePageThemeUseCase } from '../../../factories/make-update-page-theme-use-case'
+import { ResourceNotFoundError } from '../../../../domain/application/use-cases/errors/resource-not-found-error'
+import { PrismaPagesRepository } from '../../../database/repositories/prisma-page-repository'
+import { ThemePresenter } from '../../presenters/theme-presenter'
+import { PagePresenter } from '../../presenters/page-presenter'
 
 export async function updateTheme(request: FastifyRequest, reply: FastifyReply) {
   if (!request.user || !request.user.sub) {

@@ -1,9 +1,9 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { makeCreatePageUseCase } from 'src/infra/factories/make-create-page-use-case'
-import { PageSlugAlreadyExistsError } from 'src/domain/application/use-cases/errors/page-slug-already-exists-error'
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error'
-import { PagePresenter } from 'src/infra/http/presenters/page-presenter'
+import { makeCreatePageUseCase } from '../../../factories/make-create-page-use-case'
+import { PageSlugAlreadyExistsError } from '../../../../domain/application/use-cases/errors/page-slug-already-exists-error'
+import { ResourceNotFoundError } from '../../../../domain/application/use-cases/errors/resource-not-found-error'
+import { PagePresenter } from '../../presenters/page-presenter'
 
 export async function createPage(request: FastifyRequest, reply: FastifyReply) {
   if (!request.user || !request.user.sub) {

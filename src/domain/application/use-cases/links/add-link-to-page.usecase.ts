@@ -1,7 +1,7 @@
-import { Link } from 'src/domain/enterprise/entities/link.entity'
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
-import type { LinksRepository } from 'src/repositories/link-repository'
-import type { PagesRepository } from 'src/repositories/page-repository'
+import { Link } from '../../../enterprise/entities/link.entity'
+import { UniqueEntityID } from '../../../../core/entities/unique-entity-id'
+import type { LinksRepository } from '../../../../repositories/link-repository'
+import type { PagesRepository } from '../../../../repositories/page-repository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 import { UnauthorizedError } from '../errors/unauthorized-error'
 

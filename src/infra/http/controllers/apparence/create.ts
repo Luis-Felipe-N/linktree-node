@@ -1,4 +1,4 @@
-import { makeCreateThemeUseCase } from 'src/infra/factories/make-create-theme-use-case'
+import { makeCreateThemeUseCase } from '../../../factories/make-create-theme-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 

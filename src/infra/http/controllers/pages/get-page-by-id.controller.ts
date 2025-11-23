@@ -1,8 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { makeGetPageDetailsUseCase } from 'src/infra/factories/make-get-page-details-use-case'
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error'
-import { PagePresenter } from 'src/infra/http/presenters/page-presenter'
+import { makeGetPageDetailsUseCase } from '../../../factories/make-get-page-details-use-case'
+import { ResourceNotFoundError } from '../../../../domain/application/use-cases/errors/resource-not-found-error'
+import { PagePresenter } from '../../presenters/page-presenter'
 
 export async function getPageBySlug(request: FastifyRequest, reply: FastifyReply) {
   const getPageBySlugParamsSchema = z.object({

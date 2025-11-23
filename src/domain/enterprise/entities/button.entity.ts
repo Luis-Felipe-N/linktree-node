@@ -1,6 +1,6 @@
-import { Entity } from 'src/core/entities/entity'
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
-import type { Optional } from 'src/core/types/optional'
+import { Entity } from '../../../core/entities/entity'
+import { UniqueEntityID } from '../../../core/entities/unique-entity-id'
+import type { Optional } from '../../../core/types/optional'
 
 export type button = 'filled' | 'outline' | 'soft-shadow' | 'hard-shadow' // Exemplo
 

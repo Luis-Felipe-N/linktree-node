@@ -1,5 +1,5 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
-import { Background, type BackgroundProps } from 'src/domain/enterprise/entities/background.entity'
+import { UniqueEntityID } from '../../../core/entities/unique-entity-id'
+import { Background, type BackgroundProps } from '../../enterprise/entities/background.entity'
 
 export function makeBackground(
   data: Partial<BackgroundProps>,

@@ -1,5 +1,5 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
-import { Theme } from 'src/domain/enterprise/entities/theme.entity'
+import { UniqueEntityID } from '../../../core/entities/unique-entity-id'
+import { Theme } from '../../../domain/enterprise/entities/theme.entity'
 import { Prisma, Theme as PrismaTheme, Background, Button } from '@prisma/client'
 import { PrismaBackgroundMapper } from './prisma-background-mapper'
 import { PrismaButtonMapper } from './prisma-button-mapper'

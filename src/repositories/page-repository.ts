@@ -1,4 +1,4 @@
-import type { Page } from "src/domain/enterprise/entities/page.entity"
+import type { Page } from "../domain/enterprise/entities/page.entity"
 
 
 export interface PagesRepository {

@@ -1,8 +1,8 @@
-import type { Link } from 'src/domain/enterprise/entities/link.entity'
-import type { LinksRepository } from 'src/repositories/link-repository'
+import type { Link } from '../../../enterprise/entities/link.entity'
+import type { LinksRepository } from '../../../../repositories/link-repository'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 import { UnauthorizedError } from '../errors/unauthorized-error'
-import type { PagesRepository } from 'src/repositories/page-repository'
+import type { PagesRepository } from '../../../../repositories/page-repository'
 
 interface UpdateLinkUseCaseRequest {
   linkId: string

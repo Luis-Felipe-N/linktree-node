@@ -1,9 +1,9 @@
-import { Page } from 'src/domain/enterprise/entities/page.entity'
-import type { PagesRepository } from 'src/repositories/page-repository'
-import type { UsersRepository } from 'src/repositories/user-repository'
+import { Page } from '../../../enterprise/entities/page.entity'
+import type { PagesRepository } from '../../../../repositories/page-repository'
+import type { UsersRepository } from '../../../../repositories/user-repository'
 import { PageSlugAlreadyExistsError } from '../errors/page-slug-already-exists-error'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
+import { UniqueEntityID } from '../../../../core/entities/unique-entity-id'
 
 interface CreatePageUseCaseRequest {
   ownerId: string

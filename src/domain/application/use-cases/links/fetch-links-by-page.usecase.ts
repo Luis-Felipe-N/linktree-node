@@ -1,5 +1,5 @@
-import type { Link } from "src/domain/enterprise/entities/link.entity"
-import type { LinksRepository } from "src/repositories/link-repository"
+import type { Link } from "../../../enterprise/entities/link.entity"
+import type { LinksRepository } from "../../../../repositories/link-repository"
 
 interface FetchLinksByPageUseCaseRequest {
   pageId: string

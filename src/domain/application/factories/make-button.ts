@@ -1,6 +1,6 @@
-// import { UniqueEntityID } from 'src/core/entities/unique-entity-id'
-import { Button, type ButtonProps } from 'src/domain/enterprise/entities/button.entity'
-import type { UniqueEntityID } from 'src/core/entities/unique-entity-id'
+// import { UniqueEntityID } from '../../../core/entities/unique-entity-id'
+import { Button, type ButtonProps } from '../../enterprise/entities/button.entity'
+import type { UniqueEntityID } from '../../../core/entities/unique-entity-id'
 
 export function makeButton(
   data: Partial<ButtonProps>,
